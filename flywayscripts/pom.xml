@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+	<groupId>com.devops</groupId>
+	<artifactId>DevOps</artifactId>
+	<version>Version 2.0</version>
+    <name>DevOps Management</name>
+    <description>This is a repository to learn DevOps</description>
+
+    <properties>
+        <flyway.version>2.3</flyway.version>
+        <flyway.schemas>flyway_scripts_history</flyway.schemas>
+        <flyway.locations>migrations</flyway.locations>
+		
+        <mysql.driver.version>5.1.3</mysql.driver.version>
+        <database.url>jdbc:mysql://${db.server}</database.url>
+    </properties>
+
+    <dependencies>
+        <!-- Mysql connector -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.driver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.flyway</groupId>
+            <artifactId>flyway-maven-plugin</artifactId>
+            <version>${flyway.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>com.googlecode.flyway</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>${flyway.version}</version>
+                <configuration>
+					<driver>com.mysql.jdbc.Driver</driver>
+					<url>${database.url}</url>
+
+					<table>db_history</table>
+					<initVersion>1.0</initVersion>
+					<initDescription>Base Migration of sprint version 7.4</initDescription>
+					<placeholderPrefix>#[</placeholderPrefix>
+					<placeholderSuffix>]</placeholderSuffix>
+				</configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+</project>
