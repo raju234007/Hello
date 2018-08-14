@@ -1,0 +1,16 @@
+knife bootstrap 54.146.129.90 -x ubuntu -P ec2admin -i C:/opscode/chef-repo/.chef/ec2admin.pem -N Node-01 --sudo --use-sudo-password
+
+knife ec2 server create –I ami-456b493a -S ec2admin –f t2.small -x ubuntu -P ec2admin –G sg-5d8b2c17 -s subnet-9d51ddc6 -Z us-east-1a
+
+knife ec2 server create –I ami-456b493a -S D:/Key/ec2admin.pem –f t2.small -x ubuntu –g sg-5d8b2c17 -s subnet-9d51ddc6 -VV
+
+knife ec2 server create -I ami-456b493a --ssh-key D:/Key/ec2admin.ppk -f t2.small --ssh-user ubuntu --identity-file D:/Key/ec2admin.pem --security-group-ids sg-5d8b2c17 -s subnet-9d51ddc6 -VV
+
+
+https://gist.github.com/hadashiA/4353436
+git config core.autocrlf true
+https://docs.aws.amazon.com/codecommit/latest/userguide/getting-started.html#getting-started-set-up-folders
+
+aws deploy create-deployment --application-name WordPress_App --deployment-config-name your-deployment-config-name --your-deployment-group-name your-deployment-group-name --s3-location bucket=codedeploydemobucket,key=WordPressApp.zip,bundleType=zip
+
+https://docs.aws.amazon.com/codedeploy/latest/userguide/tutorials-windows-upload-application.html

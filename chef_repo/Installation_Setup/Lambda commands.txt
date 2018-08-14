@@ -1,0 +1,46 @@
+
+{
+  "action": "create/start/stop/delete/reboot"
+}
+
+
+
+---------------------
+import time
+timestr = time.strftime("%Y%m%d-%H%M%S")
+---------------------
+import datetime
+i = datetime.datetime.now()
+i = $(date +%Y-%m-%d-%H-%M-%S)
+t = datetime.datetime()
+'i.strftime(raju+'%Y-%m-%d-%H-%M-%S')'
+
+
+mkdir raju+$(date +%Y-%m-%d_%H-%M-%S)
+x = i.strftime("raju-%Y-%m-%d-%H-%M-%S")
+
+https://www.aaronmedacco.com/blog/post/2017/01/11/copying-objects-in-s3-from-one-bucket-to-another-automatically-w-aws-lambda
+
+proformlatest
+sudo chmod +x ./
+*/2 * * * * /home/ubuntu/dbdump.sh
+
+
+sudo java -cp content.jar
+
+cd /home/ubuntu/db/
+mysqldump -host james.xyz.us-east-1.rds.amazonaws.com -port 3306 -u james --password="JamesBond" --all-databases > JamesBond+$(date +%Y-%m-%d_%H-%M-%S).bak
+gzip -q *
+aws s3 sync /home/ubuntu/DEVDB/ s3://sattitest/uatbackup/
+aws s3 cp s3://sattitest/uatbackup/dev+2017-09-05_08-29-24.bak.gz D:/ZIP/
+mysqldump --host dev.cp6rxkjrhpfi.us-east-1.rds.amazonaws.com --port 3306 -u pf_user --password="EAqmALpobeYwjDyEohzWK0" --all-databases > dev+$(date +%Y-%m-%d_%H-%M-%S).bak
+
+
+https://www.rackaid.com/blog/mysql-connection-limits/
+show variables like 'max_connections';
+SET GLOBAL max_connections = 200;
+# vi /etc/my.cnf
+max_connections = 250
+mysqldump --add-drop-table -h dbhost -u dbuser -p dbname (tablename tablename ... ) | gzip -c > wp.sql.gz
+
+

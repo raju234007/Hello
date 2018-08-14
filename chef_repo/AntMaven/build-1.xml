@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+
+<project name="Automation" default="proform-copy" basedir=".">
+	<property name="java.version" value="1.8" />
+	<property name="src" value="D:/AntMaven/props" />
+	<property name="src-dir" value="C:/ApacheMaven/Project/AstonMartin" />
+	<property name="maven-exe-path" value="${env.MAVEN_HOME}/bin/mvn.cmd" />
+	<property name="MYSQLDRIVER" value="C:/Program Files (x86)/MySQL/Connector J 8.0/"/>
+	
+	<!--<path id="project.class.path">
+		<fileset dir="lib">
+			<include name="*.jar" />
+		</fileset>
+		
+		<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="project.class.path" />
+	</path>-->
+	<!-- create our ant classpath using the fileset task -->
+	<path id="class.path">
+
+	  <!-- include all jars in the lib directory and all sub-directories -->
+	  <fileset dir="C:/ant-contrib-0.3.jar">
+		<include name="*.jar" />
+	  </fileset>
+
+	</path>
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="class.path" />
+	<path id="antclasspath"> 
+		<fileset dir="${MYSQLDRIVER}"> 
+			<include name="*.jar"/> 
+		</fileset> 
+	</path>
+	
+	<target name="clean">
+	</target>
+	
+	<target name="validate" depends="clean">
+		<echo message="Validate is completed successfully [instance = ${instance}, deployment environment = ${deployment-environment}]" />
+	</target>
+
+	
+	<!-- prepare-code-for-build -->
+	<target name="properties-copy" depends="validate">
+
+		<copy file="${src}/deployment.properties"
+			  todir="${src}"
+			  overwrite="true" />
+
+		<replaceregexp file="${src}/deployment.properties"
+              match="Build=(.*)"
+              replace="Build=${buildnumber}"
+              />
+		<replaceregexp file="${src}/deployment.properties"
+              match="ResourcesBuild=(.*)"
+              replace="ResourcesBuild=${buildnumber}"
+              />
+
+		<echo message="Instance specific resources (property files) are copied successfully" />
+
+		<!-- mark the deployment-environment in web.xml -->
+
+		<replaceregexp file="${src}/web.xml" match="&lt;http-only&gt;true&lt;/http-only&gt;" replace="&lt;http-only&gt;true&lt;/http-only&gt;${line.separator}&#009;&#009;&#009;&lt;secure&gt;true&lt;/secure&gt;" byline="true" />
+		
+		<echo message="Deployment environment specific profile is set in web.xml successfully" />
+	</target>
+
+	<!--Maven Clean Install-->
+
+	<target name="build" depends="properties-copy">
+	
+		<tstamp>
+			<format property="current.time" pattern="MM-dd-yyyy hh-mm-ss aa z" />
+		</tstamp>
+		<property name="wars-dir" value="${src}/wars-${instance}-${current.time}"/>
+		<mkdir dir="${wars-dir}"/>
+		<!--
+		failonerror="true" means stop build when there is a ERROR
+		failonerror="false" means proceed build even though a ERROR is there 
+		-->
+		<exec executable="cmd.exe" dir="${src-dir}" resultproperty="build_status" failonerror="true">
+			<arg value="/c"/>
+			<arg value="mvn" />
+			<arg value="clean" />
+			<arg value="install" />
+		</exec>
+		<if>
+			<equals arg1="${build_status}" arg2="0" />
+		<then>
+			<echo message="build_status is ${build_status}" />
+			<antcallback target="build_history" return="build_status"/>
+		</then>
+		<else>
+			<echo message="build_status is ${build_status}" />
+			<antcallback target="build_history" return="build_status"/>
+		</else>
+		</if>
+	</target>
+
+	<!-- Copying war files from target to wars-dir-->
+	<target name="proform-copy" depends="build" >
+		
+		<copy todir="${wars-dir}" overwrite="true">
+			<fileset dir="${src-dir}/target">
+			  <include name="*.war"/>
+			</fileset>
+		</copy>
+
+		<echo message="ProForm wars copied successfully" />
+		<echo message="Automation is completed successfully" />
+	</target>
+	<target name="build_history" >
+		<sql
+		driver="com.mysql.cj.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/flywaydb"
+		userid="pf_user"
+		password="pf_user1!"
+		output="D:/outputfile.txt"
+		classpathref="antclasspath"
+		>
+ 
+		USE `flywayscripts`;
+		INSERT INTO `build_history`
+		(buildnumber, srcbranch, instance, started, status)
+		VALUES 
+		(${buildnumber},'sprint-41','${instance}',now(),'${build_status}');
+
+ 
+		</sql>
+		<!--<echo message= "antReturnCode=$? "/>-->
+	</target>
+	
+</project>
