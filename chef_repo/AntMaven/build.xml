@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<project name="Automation" default="Jenkins" basedir=".">
+ 
+ <tstamp>
+     <format property="time.stamp" pattern="yyyy-MM-dd_HH:mm:ss"/>
+</tstamp>
+    <!-- GLOBAL VARIABLES -->
+    <property name="source" value="app" />
+    <!-- END -->
+ 
+    <!-- AVAILABLE COMMANDS -->
+    <target name="Jenkins" depends="clean, Chef, Ansible, ProForm" />
+    <!-- END -->
+	<target name="clean">
+	</target>
+    <!-- DATE -->
+    <target name="Chef">
+        <echo message="Printing Chef date is...${time.stamp}"/>
+        <!--<exec executable="date" />-->
+    </target>
+    <!-- END -->
+ 
+    <!-- LIST -->
+    <target name="Ansible">
+        <echo message="Printing Ansible date is...${time.stamp}"/>
+        <!--<exec executable="ls">
+            <arg line="-l ${source}" />
+        </exec>-->
+    </target>
+    <!-- END -->
+ 
+</project>

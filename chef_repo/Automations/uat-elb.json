@@ -1,0 +1,7 @@
+{
+  "Paths": {
+    "Quantity": 4,
+    "Items": ["/proform/*", "/angularUI/*", "/private-content/*", "/custom-report-content/*"]
+  },
+  "CallerReference": "UAT Invalidation"
+}
