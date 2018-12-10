@@ -9,6 +9,7 @@
 
     <properties>
         <flyway.version>2.3</flyway.version>
+		<!--<flyway.version>4.0</flyway.version>-->
         <flyway.schemas>flyway_scripts_history</flyway.schemas>
         <flyway.locations>migrations</flyway.locations>
 		
@@ -26,6 +27,8 @@
         <dependency>
             <groupId>com.googlecode.flyway</groupId>
             <artifactId>flyway-maven-plugin</artifactId>
+			<!--<groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>-->
             <version>${flyway.version}</version>
         </dependency>
     </dependencies>
@@ -40,6 +43,8 @@
             <plugin>
                 <groupId>com.googlecode.flyway</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
+				<!--<groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>-->
                 <version>${flyway.version}</version>
                 <configuration>
 					<driver>com.mysql.jdbc.Driver</driver>
