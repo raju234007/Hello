@@ -1,0 +1,43 @@
+INSERT INTO `buildinfo`.`build_history` (`buildnumber`,`srcbranch`,`instance`) VALUES (1,'sprint', 'dev');
+
+CREATE TABLE `build_history` (
+  `buildnumber` double DEFAULT NULL,
+  `srcbranch` varchar(250) DEFAULT NULL,
+  `instance` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+<path id="project.class.path">
+		<!-- this lib is used by this build process -->
+		<fileset dir="lib">
+			<include name="*.jar" />
+		</fileset>
+</path>
+	
+	
+	
+<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="project.class.path" />
+
+<sql
+	driver = "${database.driver.class.name}"
+	url = "${database.url}"
+	userid = "${database.username}"
+	password = "${database.password}"
+	classpathref = "project.class.path"
+	autocommit = "true"
+	print = "yes"
+	output="output.txt">
+	<path>
+		<fileset dir="${instance-config-folder}/db-config">
+			<include name="*.sql"/>
+		</fileset>
+	</path>
+</sql>
+
+
+mvn clean compile -Ddb.server=192.168.1.227:3306 flyway:migrate
+
+https://www.java-tips.org/other-api-tips-100035/105-ant/674-how-to-use-sql-task.html
+https://chariotsolutions.com/blog/post/using-maven-to-integrate-flyway-in-an-existing-database-part-1/
+https://stackoverflow.com/questions/3363356/ant-sql-task-how-to-run-sql-and-pl-sql-and-notice-execution-failure

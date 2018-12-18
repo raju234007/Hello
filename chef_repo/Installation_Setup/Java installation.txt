@@ -1,0 +1,110 @@
+sudo su
+
+Adding to DEB
+echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" > /etc/apt/sources.list.d/webupd8team-java.list
+
+Adding to DEB-SRC
+ echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" >> /etc/apt/sources.list.d/webupd8team-java.list
+
+Adding Key
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886
+
+Update
+apt-get update
+
+Install
+apt-get install oracle-java8-installer
+
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer -y
+
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt-get update
+sudo apt-get install python2.7
+
+Read: https://docs.jboss.org/author/display/WFLY8/Getting+Started+Guide
+
+These are my notes for installing JBoss WildFly 9.0 on Ubuntu 14.04.
+These notes make the presumption you already have the Java JDK install on your system.
+
+Elevate to root
+sudo -s (or sudo -i)
+cd /opt
+
+Create a user acount on the system for wildfly
+adduser --no-create-home --disabled-password --disabled-login wildfly
+
+Download WildFly
+sudo wget http://download.jboss.org/wildfly/9.0.0.Final/wildfly-9.0.0.Final.tar.gz
+
+Extract WildFly
+sudo tar -xzvf wildfly-9.0.0.Final.tar.gz
+
+Make a symbolic link to new folder
+sudo ln -s wildfly-9.0.0.Final wildfly
+
+change ownership of directory and symbolic link to wildfly
+sudo chown -R wildfly.wildfly wildfly
+sudo chown -R wildfly.wildfly wildfly-9.0.0.Final
+
+Now, while WildFly 8 doesn’t ship as a .deb (which would be awesome!) it does provide a scripts to get you setup on Debian like/based systems of which Ubuntu is one.
+So, let’s edit and make use of those scripts:
+cd /opt/wildfly/bin/init.d
+
+Edit the file that contains the settings/options for the setup script:
+sudo vi wildfly.conf
+
+Uncomment and Edit the following lines:
+# JBOSS_HOME="/opt/wildfly"
+JBOSS_HOME="/opt/wildfly"
+
+# JBOSS_USER=wildfly
+JBOSS_USER=wildfly
+
+# JBOSS_MODE=standalone
+JBOSS_MODE=standalone
+
+# JBOSS_CONFIG=standalone.xml
+JBOSS_CONFIG=standalone-full.xml — Change configuration file name in order to run full Java EE 7 Stack
+
+# STARTUP_WAIT=60
+STARTUP_WAIT=120 –Probably overkill wait time
+
+# SHUTDOWN_WAIT=60
+SHUTDOWN_WAIT=120 –Probably overkill wait time
+
+# JBOSS_CONSOLE_LOG="/var/log/wildfly/console.log"
+JBOSS_CONSOLE_LOG="/var/log/wildfly/console.log"
+
+OK now let’s link to these files from the approprate place in /etc
+cd /etc/default
+sudo ln -s /opt/wildfly/bin/init.d/wildfly.conf wildfly
+
+cd /etc/init.d
+sudo ln -s /opt/wildfly/bin/init.d/wildfly-init-debian.sh wildfly
+
+Try to start WildFly as a service
+service wildfly start
+
+Which should give you output similar to…
+* Starting WildFly Application Server wildfly [OK]
+
+Run update-rc.d to ensure wildfly starts on reboot
+cd /etc/init.d
+update-rc.d wildfly defaults
+
+By default WildFly seems to only listen on 127.0.0.1. To make it listen on all interfaces we have to edit the standalone-full.xml (recall we changed the configuration file form standalone.xml to standalone-full.xml above) file and change each instance of “127.0.0.1” to “0.0.0.0” in the file. Just use find and replace in your editor to do this. I use vim so…
+
+cd /opt/wildfly/standalone/configuration
+vi standalone-full.xml
+:%s/127.0.0.1/0.0.0.0/g
+:wq
+
+Start or restart Wildfly
+service wildfly stop
+service wildfly start
+
+With WildFly running add a “Management User”
+cd /opt/wildfly/bin
+sudo ./add-user.sh
