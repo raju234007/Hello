@@ -1,0 +1,95 @@
+
+find . -type f | wc -l
+find videos -type f | wc -l
+tar -zcvf prod+$(date +%Y-%m-%d_%H-%M-%S).tar.gz prod/
+tar -zxvf prod+2017-10-20_11-17-50.tar.gz prod/
+tar -czvf site1.tar.gz -C /var/www/ site1
+
+java -classpath log4j-1.2.17.jar org.apache.log4j.net.SimpleSocketServer 4712 log4j-server.properties
+
+https://downloads.mongodb.com/compass/mongodb-compass-community-1.16.0-win32-x64.exe
+https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/net/SocketAppender.html
+https://stackoverflow.com/questions/47939573/configuring-hibernate-search-with-infinispan-and-wildfly?rq=1
+https://stackoverflow.com/questions/19664893/linux-shell-script-for-database-backup
+https://gist.github.com/Medalink/5454194
+http://www.linuxstall.com/install-software-linux-zip-tarball/
+https://fizzbuzzer.com/build-war-file-maven-deploy-ant/
+https://websiteforstudents.com/install-mongodb-on-ubuntu-16-04-lts-servers/
+
+aws s3 sync s3://bucket1/folder1 s3://bucket2/folder2
+aws s3 rb s3://uat.proformprofessionals.com/ --recursive
+aws s3 rb s3://uatprivatecontent
+aws s3 rb s3://uatprivatecontentdest --force
+aws s3 cp s3://A/B/ D:/X/Y/ --recursive
+aws s3 cp "C:/Users/Raju Manikala/Desktop/build.xml" s3://rajumanikala.esy.es
+aws s3 sync D:/UAT/QANEW.7z s3://sattitest/uatbackup/
+aws s3 cp D:/ZIP/meta-prod.7z s3://sattitest/
+aws s3 cp s3://prodprivatecontent/private-content/ D:/ZIP/private-content/ --recursive --exclude "mcgov"
+aws s3 cp s3://sattitest/uatnewprivate.7z D:/
+aws s3 cp D:/UAT-PriveteContent/prodprivatecontentjan10.7z s3://sattitest/ 
+aws s3 cp s3://uatnewprivatecontent/private-content/csgsol/CqDevEx-1527075125735/ D:/UAT-PriveteContent/CqDevEx-1527075125735/ --recursive
+aws s3 cp D:/prodprivatecontent/ s3://uatnewprivatecontent/ --recursive
+aws s3 rm s3://x/y/ --recursive --include "2017*" --exclude "2018*"
+aws s3 ls s3://proform_prod/msproject/ --summarize --recursive
+aws s3 cp s3://prodprivatecontent/custom-report-content/ s3://uatnewprivatecontent/custom-report-content/ --recursive
+aws cloudfront create-invalidation --invalidation-batch file://D:/properties/bat/uatInvalidation.json --distribution-id ED2SIBN5N8HXV
+aws elasticache reboot-cache-cluster --cache-cluster-id uat --cache-node-ids-to-reboot 0001 --region us-east-1
+
+cd C:\Users\Administrator\Desktop\git-build-code\git-export-folder\proform-app-resources\src\main\webapp\WEB-INF\angularUI
+npm install -g grunt-cli
+npm install grunt
+npm install grunt-contrib-copy
+grunt angular-build --target=prod
+
+npm uninstall -g @angular-cli
+npm cache clean
+npm install -g @angular/cli@1.6.8
+npm install -g @angular/cli typescript
+
+dotnet publish -c Release -r ubuntu.16.10-x64
+
+#hostname -I
+#$(hostname -I)
+#JAVA_OPTS="$JAVA_OPTS -Djgroups.tcp.address=$PrivateIP"
+curl -s http://ifconfig.me
+curl https://checkip.amazonaws.com
+
+#infinispan
+PrivateIP=$(hostname -I)
+JAVA_OPTS="$JAVA_OPTS -Djgroups.bind_addr=$PrivateIP"
+
+echo lib/* | sed 's/ /:/g'
+sudo java -cp userIndex.jar:<paste copied content> com.cobbsystemsgroup.UserIndex
+
+sudo apt-get remove newrelic-sysmond
+sudo apt-get purge --auto-remove redis-server
+sudo apt-get purge --auto-remove mysql
+sudo apt-get purge mysql-server-5.6
+sudo apt-get purge --auto-remove mongod
+
+grep "ERROR" proform.log proform.log.1 
+grep -w 'ERROR|2018-11-12\|2018-11-13\|2018-11-14\|2018-11-15' proform-*
+grep "ERROR" proform-* | grep "2018-11-12"
+grep "ERROR" server-* | grep "2018-11-12\|2018-11-13\|2018-11-14\|2018-11-15"
+
+contenturl = https://s3.amazonaws.com
+ipconfig /release
+ipconfig /renew
+ipconfig /flushdns
+ipconfig /all
+Select @@version
+http://mikeferrier.com/2011/10/27/granting-access-to-a-single-s3-bucket-using-amazon-iam/
+http://www.avajava.com/tutorials/categories/ant
+https://hostpresto.com/community/tutorials/how-to-install-and-configure-redis-on-ubuntu-14-04/
+
+https://medium.com/@wassimchegham/modern-frontend-ci-cd-architecture-the-missing-guide-part-1-8444001fadc
+https://medium.com/@wassimchegham/modern-frontend-ci-cd-architecture-the-missing-guide-part-2-d51875bd0e65
+https://medium.com/@wassimchegham/modern-frontend-ci-cd-architecture-the-missing-guide-part-3-9a6be231d14
+
+C:\wildfly-9.0.0.Final\bin\jboss-cli.bat --connect --controller=localhost:9990 --command="deploy MercedesBenz\target\MercedesBenz.war --force"
+C:\wildfly-9.0.0.Final\bin\jboss-cli.bat --connect --controller=localhost:9990 --command="undeploy MercedesBenz.war"
+/opt/wildfly/bin/jboss-cli.sh -c controller=127.0.0.1:9990 --user=proform --password='letmein!123' --command="deploy /home/ubuntu/wars/MercedesBenz.war"
+/opt/wildfly/bin/jboss-cli.sh -c controller=127.0.0.1:9990 --user=proform --password='letmein!123' --command="undeploy MercedesBenz.war"
+/opt/wildfly/bin/jboss-cli.sh -c controller=127.0.0.1:9990 --user=proform --password='letmein!123' --command="undeploy *.war"
+aws route53 change-resource-record-sets --hosted-zone-id XXXX --change-batch file://D:\PAGE\PROD-R53-S3.json --debug
+aws route53 change-resource-record-sets --hosted-zone-id XXXX --change-batch file://D:\PAGE\PROD-R53-CF.json --debug

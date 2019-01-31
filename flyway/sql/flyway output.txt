@@ -1,0 +1,119 @@
+Started by user admin
+Building in workspace C:\Program Files (x86)\Jenkins\workspace\flyway
+$ C:\Users\raju.manikala\Desktop\Raju-GIT\flyway\flyway.cmd -user=pf_user ******** -url=jdbc:mysql://192.168.1.227:3306/jenkins_flyway -locations=filesystem:/flyway-5.2.4/sql/app info
+Flyway Community Edition 5.2.4 by Boxfuse
+Database: jdbc:mysql://192.168.1.227:3306/jenkins_flyway (MySQL 5.6)
+Schema version: 1.4
+
++-----------+---------+-----------------------------------+--------+---------------------+---------+
+| Category  | Version | Description                       | Type   | Installed On        | State   |
++-----------+---------+-----------------------------------+--------+---------------------+---------+
+|           | 0       | << Flyway Schema Creation >>      | SCHEMA | 2018-12-17 18:12:14 | Success |
+| Versioned | 1.0     | 32app 800 baseschema              | SQL    | 2018-12-17 18:12:16 | Success |
+| Versioned | 1.1     | 32app 800 baseprocedures          | SQL    | 2018-12-17 18:12:18 | Success |
+| Versioned | 1.2     | 32app 800 baseviewsandfunctions   | SQL    | 2018-12-17 18:12:19 | Success |
+| Versioned | 1.3     | 32app 800 basesystemdata          | SQL    | 2018-12-17 18:12:21 | Success |
+| Versioned | 1.4     | 32app 801 basesystemdata          | SQL    | 2018-12-17 18:12:28 | Success |
+| Versioned | 1.5     | flyway sprint Tasks               | SQL    |                     | Pending |
+| Versioned | 1.6     | flyway sprint Persons People      | SQL    |                     | Pending |
+| Versioned | 1.7     | flyway sprint Locations           | SQL    |                     | Pending |
+| Versioned | 1.8     | flyway sprint Salman              | SQL    |                     | Pending |
+| Versioned | 1.9     | flyway sprint Sharmad Pasha       | SQL    |                     | Pending |
+| Versioned | 2.0     | flyway sprint Sathish             | SQL    |                     | Pending |
+| Versioned | 2.1     | flyway sprint Venkat              | SQL    |                     | Pending |
+| Versioned | 2.2     | flyway sprint DB Connections      | SQL    |                     | Pending |
+| Versioned | 2.2.1   | flyway sprint DB User Connections | SQL    |                     | Pending |
+| Versioned | 2.2.2   | flyway sprint SQL Mode            | SQL    |                     | Pending |
+| Versioned | 2.2.3   | flyway sprint Secure              | SQL    |                     | Pending |
+| Versioned | 2.3     | flyway sprint DB Processlist      | SQL    |                     | Pending |
+| Versioned | 2.4     | flyway sprint Max Allowed Packet  | SQL    |                     | Pending |
+| Versioned | 2.5     | flyway sprint Max Version 1.0     | SQL    |                     | Pending |
+| Versioned | 2.6     | flyway sprint Max Version 2.0     | SQL    |                     | Pending |
+| Versioned | 2.7     | flyway sprint Max Version 3.0     | SQL    |                     | Pending |
++-----------+---------+-----------------------------------+--------+---------------------+---------+
+
+$ C:\Users\raju.manikala\Desktop\Raju-GIT\flyway\flyway.cmd -user=pf_user ******** -url=jdbc:mysql://192.168.1.227:3306/jenkins_flyway -locations=filesystem:/flyway-5.2.4/sql/app -outOfOrder=true repair
+Flyway Community Edition 5.2.4 by Boxfuse
+Database: jdbc:mysql://192.168.1.227:3306/jenkins_flyway (MySQL 5.6)
+Repair of failed migration in Schema History table `jenkins_flyway`.`flyway_schema_history` not necessary. No failed migration detected.
+Repairing Schema History table for version 1.0 (Description: 32app 800 baseschema, Type: SQL, Checksum: -1841215929)  ...
+Repairing Schema History table for version 1.1 (Description: 32app 800 baseprocedures, Type: SQL, Checksum: -1042604605)  ...
+Repairing Schema History table for version 1.2 (Description: 32app 800 baseviewsandfunctions, Type: SQL, Checksum: 1182652032)  ...
+Repairing Schema History table for version 1.3 (Description: 32app 800 basesystemdata, Type: SQL, Checksum: 1726982859)  ...
+Repairing Schema History table for version 1.4 (Description: 32app 801 basesystemdata, Type: SQL, Checksum: -515284600)  ...
+Successfully repaired schema history table `jenkins_flyway`.`flyway_schema_history` (execution time 00:00.129s).
+Manual cleanup of the remaining effects the failed migration may still be required.
+$ C:\Users\raju.manikala\Desktop\Raju-GIT\flyway\flyway.cmd -user=pf_user ******** -url=jdbc:mysql://192.168.1.227:3306/jenkins_flyway -locations=filesystem:/flyway-5.2.4/sql/app -ignorePendingMigrations=true -ignoreIgnoredMigrations=true -outOfOrder=true validate
+Flyway Community Edition 5.2.4 by Boxfuse
+Database: jdbc:mysql://192.168.1.227:3306/jenkins_flyway (MySQL 5.6)
+Successfully validated 22 migrations (execution time 00:00.058s)
+$ C:\Users\raju.manikala\Desktop\Raju-GIT\flyway\flyway.cmd -user=pf_user ******** -url=jdbc:mysql://192.168.1.227:3306/jenkins_flyway -locations=filesystem:/flyway-5.2.4/sql/app -outOfOrder=true -baselineOnMigrate=true migrate
+Flyway Community Edition 5.2.4 by Boxfuse
+Database: jdbc:mysql://192.168.1.227:3306/jenkins_flyway (MySQL 5.6)
+Successfully validated 22 migrations (execution time 00:00.059s)
+Current version of schema `jenkins_flyway`: 1.4
+WARNING: outOfOrder mode is active. Migration of schema `jenkins_flyway` may not be reproducible.
+Migrating schema `jenkins_flyway` to version 1.5 - flyway sprint Tasks
+WARNING: DB: Table 'tasks' already exists (SQL State: 42S01 - Error Code: 1050)
+Migrating schema `jenkins_flyway` to version 1.6 - flyway sprint Persons People
+WARNING: DB: Can't create database 'jenkins_flyway'; database exists (SQL State: HY000 - Error Code: 1007)
+WARNING: DB: Can't create database 'jenkins_flyway'; database exists (SQL State: HY000 - Error Code: 1007)
+Migrating schema `jenkins_flyway` to version 1.7 - flyway sprint Locations
+Migrating schema `jenkins_flyway` to version 1.8 - flyway sprint Salman
+WARNING: DB: Table 'salman' already exists (SQL State: 42S01 - Error Code: 1050)
+Migrating schema `jenkins_flyway` to version 1.9 - flyway sprint Sharmad Pasha
+WARNING: DB: Table 'pasha' already exists (SQL State: 42S01 - Error Code: 1050)
+Migrating schema `jenkins_flyway` to version 2.0 - flyway sprint Sathish
+WARNING: DB: Table 'sathish' already exists (SQL State: 42S01 - Error Code: 1050)
+Migrating schema `jenkins_flyway` to version 2.1 - flyway sprint Venkat
+WARNING: DB: Table 'venkat' already exists (SQL State: 42S01 - Error Code: 1050)
+Migrating schema `jenkins_flyway` to version 2.2 - flyway sprint DB Connections
+Migrating schema `jenkins_flyway` to version 2.2.1 - flyway sprint DB User Connections
+Migrating schema `jenkins_flyway` to version 2.2.2 - flyway sprint SQL Mode
+WARNING: DB: Table 'sql_mode' already exists (SQL State: 42S01 - Error Code: 1050)
+Migrating schema `jenkins_flyway` to version 2.2.3 - flyway sprint Secure
+WARNING: DB: Table 'secure' already exists (SQL State: 42S01 - Error Code: 1050)
+Migrating schema `jenkins_flyway` to version 2.3 - flyway sprint DB Processlist
+Migrating schema `jenkins_flyway` to version 2.4 - flyway sprint Max Allowed Packet
+Migrating schema `jenkins_flyway` to version 2.5 - flyway sprint Max Version 1.0
+WARNING: DB: Table 'max_version' already exists (SQL State: 42S01 - Error Code: 1050)
+Migrating schema `jenkins_flyway` to version 2.6 - flyway sprint Max Version 2.0
+WARNING: DB: Table 'max_version_2.o' already exists (SQL State: 42S01 - Error Code: 1050)
+Migrating schema `jenkins_flyway` to version 2.7 - flyway sprint Max Version 3.0
+WARNING: DB: Table 'max_version_2.1' already exists (SQL State: 42S01 - Error Code: 1050)
+Successfully applied 16 migrations to schema `jenkins_flyway` (execution time 00:01.983s)
+$ C:\Users\raju.manikala\Desktop\Raju-GIT\flyway\flyway.cmd -user=pf_user ******** -url=jdbc:mysql://192.168.1.227:3306/jenkins_flyway -locations=filesystem:/flyway-5.2.4/sql/app info
+Flyway Community Edition 5.2.4 by Boxfuse
+Database: jdbc:mysql://192.168.1.227:3306/jenkins_flyway (MySQL 5.6)
+Schema version: 2.7
+
++-----------+---------+-----------------------------------+--------+---------------------+---------+
+| Category  | Version | Description                       | Type   | Installed On        | State   |
++-----------+---------+-----------------------------------+--------+---------------------+---------+
+|           | 0       | << Flyway Schema Creation >>      | SCHEMA | 2018-12-17 18:12:14 | Success |
+| Versioned | 1.0     | 32app 800 baseschema              | SQL    | 2018-12-17 18:18:33 | Success |
+| Versioned | 1.1     | 32app 800 baseprocedures          | SQL    | 2018-12-17 18:18:33 | Success |
+| Versioned | 1.2     | 32app 800 baseviewsandfunctions   | SQL    | 2018-12-17 18:18:33 | Success |
+| Versioned | 1.3     | 32app 800 basesystemdata          | SQL    | 2018-12-17 18:18:33 | Success |
+| Versioned | 1.4     | 32app 801 basesystemdata          | SQL    | 2018-12-17 18:18:33 | Success |
+| Versioned | 1.5     | flyway sprint Tasks               | SQL    | 2018-12-17 18:18:35 | Success |
+| Versioned | 1.6     | flyway sprint Persons People      | SQL    | 2018-12-17 18:18:36 | Success |
+| Versioned | 1.7     | flyway sprint Locations           | SQL    | 2018-12-17 18:18:37 | Success |
+| Versioned | 1.8     | flyway sprint Salman              | SQL    | 2018-12-17 18:18:37 | Success |
+| Versioned | 1.9     | flyway sprint Sharmad Pasha       | SQL    | 2018-12-17 18:18:37 | Success |
+| Versioned | 2.0     | flyway sprint Sathish             | SQL    | 2018-12-17 18:18:37 | Success |
+| Versioned | 2.1     | flyway sprint Venkat              | SQL    | 2018-12-17 18:18:37 | Success |
+| Versioned | 2.2     | flyway sprint DB Connections      | SQL    | 2018-12-17 18:18:37 | Success |
+| Versioned | 2.2.1   | flyway sprint DB User Connections | SQL    | 2018-12-17 18:18:37 | Success |
+| Versioned | 2.2.2   | flyway sprint SQL Mode            | SQL    | 2018-12-17 18:18:37 | Success |
+| Versioned | 2.2.3   | flyway sprint Secure              | SQL    | 2018-12-17 18:18:37 | Success |
+| Versioned | 2.3     | flyway sprint DB Processlist      | SQL    | 2018-12-17 18:18:37 | Success |
+| Versioned | 2.4     | flyway sprint Max Allowed Packet  | SQL    | 2018-12-17 18:18:37 | Success |
+| Versioned | 2.5     | flyway sprint Max Version 1.0     | SQL    | 2018-12-17 18:18:37 | Success |
+| Versioned | 2.6     | flyway sprint Max Version 2.0     | SQL    | 2018-12-17 18:18:37 | Success |
+| Versioned | 2.7     | flyway sprint Max Version 3.0     | SQL    | 2018-12-17 18:18:37 | Success |
++-----------+---------+-----------------------------------+--------+---------------------+---------+
+
+Discard old builds...
+#163 is removed because status SUCCESS is not to be kept
+Finished: SUCCESS

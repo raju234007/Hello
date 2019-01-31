@@ -1,0 +1,6 @@
+
+C:\flyway\flyway.cmd -user=pf_user ******** -url=jdbc:mysql://IP:PORT/jenkins_flyway -locations=filesystem:/flyway-5.2.4/sql/app -outOfOrder=true repair
+
+C:\flyway\flyway.cmd -user=pf_user ******** -url=jdbc:mysql://IP:PORT/jenkins_flyway -locations=filesystem:/flyway-5.2.4/sql/app -ignorePendingMigrations=true -ignoreIgnoredMigrations=true -outOfOrder=true validate
+
+C:\flyway\flyway.cmd -user=pf_user ******** -url=jdbc:mysql://IP:PORT/jenkins_flyway -locations=filesystem:/flyway-5.2.4/sql/app -outOfOrder=true -baselineOnMigrate=true migrate
