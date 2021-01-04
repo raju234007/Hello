@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Appenders -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%X{sessionId}|%X{loggedInUserName}|%X{loggedInUserId}|%X{serverName}|%X{servletPath}|%X{browser}|%X{browserVersion}|%X{operatingSystem}|%X{userIP}|%X{localHost}| {%x} %-4r [%t] %-5p %c %x - %m%n" />
+		</layout>
+	</appender>
+	<!--
+	<appender name="file" class="org.apache.log4j.RollingFileAppender">
+   		<param name="file" value="${jboss.server.log.dir}/hibernate.log"/>
+		<param name="MaxBackupIndex" value="5"/>
+    	<layout class="org.apache.log4j.PatternLayout">
+      		<param name="ConversionPattern" value="%d{ISO8601} %-5p - %-26.26c{1} - %m%n" />
+    	</layout>
+    </appender>
+	-->
+	<appender name="socket" class="org.apache.log4j.net.SocketAppender">
+        <param name="Port" value="4712" />
+        <param name="RemoteHost" value="localhost" />
+        <param name="ReconnectionDelay" value="60000" />
+        <param name="Threshold" value="INFO" />
+    </appender>
+	
+<!--<appender name="file" class="org.apache.log4j.rolling.RollingFileAppender" >
+     <param name="threshold" value="info"/>
+     <rollingPolicy name="file"  class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+        <param name="FileNamePattern" value="C:/Jboss/Log/MercedesBenz.log.%d{yyyy-MM-dd}.gz"/>
+        <param name="ActiveFileName" value="C:/Jboss/Log/MercedesBenz.log"/>
+		<param name="MaxBackupIndex" value="2"/>
+		<param name="maxFileSize" value="4KB" />
+     </rollingPolicy>
+     <layout class="org.apache.log4j.EnhancedPatternLayout" >
+        <param name="ConversionPattern" value="%d{ISO8601} %-5p - %-26.26c{1} - %m%n" />
+    </layout>
+</appender>-->
+
+	<!-- Application Loggers -->
+	<logger name="org.springframework.jdbc.core">
+		<level value="trace" />
+	</logger>
+
+	<logger name="com.cobbsystemsgroup">
+		<level value="debug" />
+	</logger>
+
+	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework">
+		<level value="error" />
+	</logger>
+	<logger name ="log4j.logger">
+		<level value="debug"/>
+	</logger>
+	<logger name ="com.mchange.v2">
+		<level value="error"/>
+	</logger>
+	<logger name ="org.hibernate.search">
+        <level value="debug"/>
+    </logger>
+	<logger name ="org.apache">
+		<level value="error"/>
+	</logger>
+	<logger name ="javax.persistence">
+		<level value="error"/>
+	</logger>
+	<logger name ="com.zaxxer">
+		<level value="error"/>
+	</logger>
+
+	<!-- Root Logger -->
+	<root>
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+		<appender-ref ref="socket" />
+	</root>
+
+</log4j:configuration>

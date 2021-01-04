@@ -1,0 +1,99 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.aston.martin</groupId>
+  <artifactId>AstonMartin</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>AstonMartin Maven Webapp</name>
+  <description>This is a repository to manage the Aston Martin</description>
+  <url>http://maven.apache.org</url>
+  <properties>
+  <version.log4j>2.3</version.log4j>
+  <version.log4j.extras>1.2.17</version.log4j.extras>
+  <org.springframework-version>4.1.6.RELEASE</org.springframework-version>
+  </properties>
+  <dependencies>
+	<!-- Logging -->
+	<dependency>
+        <groupId>org.apache.logging.log4j </groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>${version.log4j}</version>
+        <scope>compile</scope>
+    </dependency>
+    <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>apache-log4j-extras</artifactId>
+        <version>${version.log4j.extras}</version>
+    </dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-api</artifactId>
+		<version>1.6.4</version>
+		<scope>compile</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>${org.springframework-version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-webmvc</artifactId>
+		<version>${org.springframework-version}</version>
+	</dependency>
+
+		<!-- Spring Security (used for CSRF protection only) -->
+	<dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-web</artifactId>
+		<version>5.0.0.RELEASE</version>
+	</dependency>
+	<dependency>
+	  <groupId>com.amazonaws</groupId>
+	  <artifactId>aws-xray-recorder-sdk-core</artifactId>
+	  <version>1.2.1</version>
+	</dependency>
+</dependencies>
+  <build>
+    <finalName>AstonMartin</finalName>
+	
+		<plugins>
+		    <!-- Eclipse project -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+				    <!-- Always download and attach dependencies source code -->
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>false</downloadJavadocs>
+					<!-- mvn eclipse:eclipse -Dwtpversion=2.0 -->
+					<wtpversion>2.0</wtpversion>
+				</configuration>
+			</plugin>
+			
+			<!-- Set JDK Compiler Level -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+
+			<!-- For Tomcat -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<path>/AstonMartin</path>
+				</configuration>
+			</plugin>
+
+		</plugins>
+  </build>
+</project>
