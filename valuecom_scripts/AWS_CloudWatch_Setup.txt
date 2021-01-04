@@ -1,0 +1,132 @@
+*********************** AWS LOGS **********************
+# -----------------------------------------------------
+#  Configured by Raju
+# -----------------------------------------------------
+add IAM policies
+
+sudo yum install awslogs
+
+[/var/log/messages]
+datetime_format = %d-%m-%Y %H:%M:%S
+file = /var/log/messages
+buffer_duration = 5000
+log_stream_name = messages
+initial_position = start_of_file
+log_group_name = log_group_of_{instance_id}
+
+sudo service awslogsd start
+sudo systemctl enable awslogsd
+
+https://medium.com/tensult/to-send-linux-logs-to-aws-cloudwatch-17b3ea5f4863
+:%s/${aws:InstanceId}/${InstanceId}/gc
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_cloudwatch_logs.html
+
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/metrics-collected-by-CloudWatch-agent.html#linux-metrics-enabled-by-CloudWatch-agent
+
+**************** AWS CloudWatch Agent *****************
+# -----------------------------------------------------
+#  Configured by Raju
+# -----------------------------------------------------
+
+wget download-link
+https://s3.us-east-1.amazonaws.com/amazoncloudwatch-agent-us-east-1/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
+https://s3.us-east-1.amazonaws.com/amazoncloudwatch-agent-us-east-1/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm.sig
+
+/opt/aws/amazon-cloudwatch-agent/etc
+sudo aws configure --profile AmazonCloudWatchAgent
+
+add IAM policies
+
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.d/amazon-cloudwatch-agent.json -s
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:configuration-file-path -s
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -m ec2 -a status
+
+"cpu_time_active",
+"cpu_time_guest",
+"cpu_time_guest_nice",
+"cpu_time_idle",
+"cpu_time_iowait",
+"cpu_time_irq",
+"cpu_time_nice",
+"cpu_time_softirq",
+"cpu_time_steal",
+"cpu_time_system",
+"cpu_time_user",
+"cpu_usage_active",
+"cpu_usage_guest",
+"cpu_usage_guest_nice",
+"cpu_usage_idle",
+"cpu_usage_iowait",
+"cpu_usage_irq",
+"cpu_usage_nice",
+"cpu_usage_softirq",
+"cpu_usage_steal",
+"cpu_usage_system",
+"cpu_usage_user"
+
+"disk_free",
+"disk_inodes_free",
+"disk_inodes_total",
+"disk_inodes_used",
+"disk_total",
+"disk_used",
+"disk_used_percent",
+"diskio_iops_in_progress",
+"diskio_io_time",
+"diskio_reads",
+"diskio_read_bytes",
+"diskio_read_time",
+"diskio_writes",
+"diskio_write_bytes",
+"diskio_write_time",
+
+"mem_active",
+"mem_available",
+"mem_available_percent",
+"mem_buffered",
+"mem_cached",
+"mem_free",
+"mem_inactive",
+"mem_total",
+"mem_used",
+"mem_used_percent",
+
+"net_bytes_recv",
+"net_bytes_sent",
+"net_drop_in",
+"net_drop_out",
+"net_err_in",
+"net_err_out",
+"net_packets_sent",
+"net_packets_recv",
+"netstat_tcp_close",
+"netstat_tcp_close_wait",
+"netstat_tcp_closing",
+"netstat_tcp_established",
+"netstat_tcp_fin_wait1",
+"netstat_tcp_fin_wait2",
+"netstat_tcp_last_ack",
+"netstat_tcp_listen",
+"netstat_tcp_none",
+"netstat_tcp_syn_sent",
+"netstat_tcp_syn_recv",
+"netstat_tcp_time_wait",
+"netstat_udp_socket",
+
+"processes_blocked",
+"processes_dead",
+"processes_idle",
+"processes_paging",
+"processes_running",
+"processes_sleeping",
+"processes_stopped",
+"processes_total",
+"processes_total_threads",
+"processes_wait",
+"processes_zombies",
+
+"swap_free",
+"swap_used",
+"swap_used_percent",
+
+

@@ -1,0 +1,144 @@
+
+yum remove php--5.3.29-1.8.amzn1.x86_64
+yum remove php--5.3.29-1.8.amzn1.x86_64
+yum remove java-1.8.0-openjdk.x86_64
+yum install java-1.8.0-openjdk.x86_64
+
+yum install nginx -y
+nginx -v
+nginx version: nginx/1.14.1
+
+yum install php71-fpm.x86_64
+	php71-cli.x86_64 0:7.1.29-1.39.amzn1
+	php71-json.x86_64 0:7.1.29-1.39.amzn1
+	php71-process.x86_64 0:7.1.29-1.39.amzn1
+	php71-xml.x86_64 0:7.1.29-1.39.amzn1
+	php71-common-7.1.29-1.39.amzn1.x86_64
+yum install php71-mysqlnd.x86_64
+yum install php71-odbc.x86_64
+
+php -v
+PHP 7.1.29 (cli) (built: May 24 2019 21:18:32) ( NTS )
+Copyright (c) 1997-2018 The PHP Group
+Zend Engine v3.1.0, Copyright (c) 1998-2018 Zend Technologies
+
+yum install mysql56-server -y
+service mysqld restart
+mysql -V
+mysql  Ver 14.14 Distrib 5.6.44, for Linux (x86_64) using  EditLine wrapper
+
+mysql -u root
+UPDATE mysql.user SET Password=PASSWORD('EfbmW8u4yCKN9t') WHERE User='root';
+CREATE USER 'test_user'@'localhost' IDENTIFIED BY 'Test123!';
+SELECT User,Host FROM mysql.user;
+GRANT CREATE ON *.* TO 'test_user'@'localhost';
+CREATE DATABASE mediawiki_db;
+
+CREATE USER 'jira_admin'@'localhost' IDENTIFIED BY 'V@luEcom*247';
+SELECT User,Host FROM mysql.user;
+GRANT CREATE ON *.* TO 'jira_admin'@'localhost';
+CREATE DATABASE jira_db;
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY 'EfbmW8u4yCKN9t' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'wiki_user'@'localhost' IDENTIFIED BY 'Test123!' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'jira_admin'@'localhost' IDENTIFIED BY 'V@luEcom*247' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'jira_admin'@'%' IDENTIFIED BY 'V@luEcom*247' WITH GRANT OPTION;
+
+UPDATE mysql.user SET user='wiki_user', password=PASSWORD('P@ssword!123#') WHERE user='test_user';
+FLUSH PRIVILEGES;
+
+CREATE USER 'wiki_user'@'localhost' IDENTIFIED BY 'Test123!';
+SELECT User,Host FROM mysql.user;
+GRANT CREATE ON *.* TO 'wiki_user'@'localhost';
+
+wget https://releases.wikimedia.org/mediawiki/1.24/mediawiki-1.24.2.tar.gz
+tar -zxpvf mediawiki-1.24.2.tar.gz
+mv mediawiki-1.24.2 /var/www/html/mediawiki
+chown -R nginx:nginx /var/www/html/mediawiki/
+chmod 755 /var/www/html/mediawiki/
+
+https://coderwall.com/p/hmsr5a/have-php-fpm-listen-on-unix-socket
+
+## Values added by Raju
+listen = /var/run/php-fpm/php-fpm.sock
+listen.owner = nginx
+listen.group = nginx
+listen.mode = 0664
+user = nginx
+group = nginx
+
+If you need to create a user that has no home directory and is locked out from logging in, you can do this with the the following commands:
+
+sudo useradd -M nginx
+​sudo usermod -L nginx
+
+The first command creates the user without a home directory and the second command locks the user out of logging in.
+-Creating groups and adding users
+Now it's time to create a group. Let's create the group editorial. To do this, you would issue the command:
+sudo groupadd nginx
+Now we want to add our new user, olivia, to the group editorial. For this we will take advantage of the usermod command. This command is quite simple to use.
+sudo usermod -a -G nginx nginx
+The -a option tells usermod we are appending and the -G option tells usermod we are appending to the group name that follows the option.
+
+
+
+https://gist.github.com/nrollr/56e933e6040820aae84f82621be16670
+
+https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/3.1/html/installation_guide/chap-enabling_selinux
+https://www.linuxtechi.com/install-mediawiki-on-linux/
+
+
+server {
+        listen 80;
+        listen [::]:80;
+        server_name localhost;
+
+        location / {
+            root   /var/www/html;
+			autoindex on;
+            index index.htm index.html index.php;
+        }
+
+        location ~ \.php$ {
+            root /var/www/html;
+            fastcgi_pass   unix:/var/run/php-fpm/php-fpm.sock;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            include        fastcgi_params;
+        }
+}
+
+
+grep -iRl "fastcgi://unix:/var/run/php-fpm/www.sock:" /etc/
+
+server {
+	listen 80;
+	listen [::]:80;
+	server_name localhost;
+
+	location / {
+	    root   /var/www/html;
+	    index  index.php index.html index.htm;
+	}
+
+	location ~ \.php$ {
+	    root /var/www/html;
+	    fastcgi_pass   unix:/var/run/php-fpm/php-fpm.sock;
+	    fastcgi_index  index.php;
+	    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+	    include        fastcgi_params;
+	}
+}
+
+
+;Values added by Raju
+listen = /var/run/php-fpm/php-fpm.sock
+;listen.owner = nginx
+;listen.group = nginx
+listen.mode = 0660
+user = nginx
+group = nginx
+
+fastcgi://unix:/var/run/php-fpm/www.sock:
+fastcgi   unix:/var/run/php-fpm/www.sock;
+

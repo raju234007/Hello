@@ -1,0 +1,151 @@
+**********************************************************************
+***                                                                ***
+***   OpenSSL has been successfully configured                     ***
+***                                                                ***
+**********************************************************************
+
+---------------------------------------------
+--* Base Image Creation *--
+---------------------------------------------
+
+
+---------------------------------------------
+--* Update to OpenSSL 1.1.1d  10 Sep 2019 *--
+---------------------------------------------
+https://www.howtoforge.com/tutorial/how-to-install-openssl-from-source-on-linux/
+## run the whole process as root
+mv /usr/bin/openssl /home/ec2-user/usr_bin/
+mv /usr/local/openssl /home/ec2-user/usr_local/
+yum install gcc
+cd /usr/local/src
+## OPTIONALLY CHANGE openssl-1.1.1d.tar.gz to the version which you want
+wget https://www.openssl.org/source/openssl-1.1.1d.tar.gz
+sha256sum openssl-1.1.1d.tar.gz  #confirm this matches the published hash
+1e3a91bc1f9dfce01af26026f856e064eab4c8ee0a8f457b5ae30b40b8b711f2  openssl-1.1.1d.tar.gz
+tar -zxf openssl-1.1.1d.tar.gz
+cd /usr/local/src/openssl-1.1.1d
+./config --prefix=/usr/local --openssldir=/usr/local/openssl
+make
+make test
+make install
+export LD_LIBRARY_PATH=/usr/local/lib64
+#make export permanent
+echo "export LD_LIBRARY_PATH=/usr/local/lib64" > /etc/profile.d/ld_library_path.sh
+chmod ugo+x /etc/profile.d/ld_library_path.sh
+
+Do which openssl to find out which copy you are running - I suspect it's the default, older one.
+You'll need to set PATH to contain /usr/local/openssl/bin to get the new one:
+export PATH=/usr/local/openssl/bin:$PATH
+
+openssl version  #confirm it works
+#recommended reboot here
+openssl version  #confirm it works after reboot
+
+------------* DONE *--------------
+
+---------------------------------------------
+--* Update to Apache 2.4.41 *--
+---------------------------------------------
+
+yum install -y httpd
+
+Installed:
+  httpd.x86_64 0:2.4.41-1.amzn2.0.1
+
+Dependency Installed:
+  apr.x86_64 0:1.6.3-5.amzn2.0.2                     apr-util.x86_64 0:1.6.1-5.amzn2.0.2           apr-util-bdb.x86_64 0:1.6.1-5.amzn2.0.2       generic-logos-httpd.noarch 0:18.0.0-4.amzn2
+  httpd-filesystem.noarch 0:2.4.41-1.amzn2.0.1       httpd-tools.x86_64 0:2.4.41-1.amzn2.0.1       mailcap.noarch 0:2.1.41-2.amzn2               mod_http2.x86_64 0:1.15.3-2.amzn2
+
+yum install -y mod24_ssl
+
+Installed:
+  mod_ssl.x86_64 1:2.4.41-1.amzn2.0.1
+
+Dependency Installed:
+  libtalloc.x86_64 0:2.1.14-1.amzn2                                                                  sscg.x86_64 0:2.3.3-2.amzn2.0.1
+
+
+
+yum install httpd-tools
+yum install mod_ssl
+
+------------* DONE *--------------
+
+https://devdocs.magento.com/guides/v2.3/install-gde/system-requirements-tech.html
+https://www.rosehosting.com/blog/how-to-install-php-7-3-on-ubuntu-16-04/
+https://tecadmin.net/install-apache24-php7-on-amazon-linux/
+https://fizzbuzzer.com/upgrading-php7-amazon-linux-ec2-instance/
+https://stackoverflow.com/questions/53918841/how-to-install-amazon-linux-extras
+amazon-linux-extras install
+amazon-linux-extras install -y php7.3 
+amazon-linux-extras install -y php7.3-devel 
+amazon-linux-extras install -y php7.3-mysql 
+amazon-linux-extras install -y php7.3-pdo 
+amazon-linux-extras install -y php7.3-mbstring
+
+sudo yum install php7.3 php7.3-php php7.3-php-fpm php7.3-php-mysqlnd php7.3-php-mysql php7.3-php-opcache php7.3-php-xml php7.3-php-xmlrpc php7.3-php-gd php7.3-php-mbstring php7.3-php-json php7.3-php-mcrypt php7.3-php-pear php7.3-php-devel php7.3-php-intl php7.3-php-bcmath php7.3-php-cli php7.3-php-common php7.3-php-soap php7.3-php-pecl-zip php7.3-php-pdo php7.3-php-process php7.3-php-pear php7.3-php-devel php7.3-php-amqplib
+
+sudo yum install 
+	php7.3 
+	php7.3-php 
+	php7.3-php-fpm 
+	php7.3-php-mysqlnd 
+	php7.3-php-mysql 
+	php7.3-php-opcache 
+	php7.3-php-xml 
+	php7.3-php-xmlrpc 
+	php7.3-php-gd 
+	php7.3-php-mbstring 
+	php7.3-php-json 
+	php7.3-php-mcrypt 
+	php7.3-php-pear 
+	php7.3-php-devel 
+	php7.3-php-intl 
+	php7.3-php-bcmath 
+	php7.3-php-cli 
+	php7.3-php-common 
+	php7.3-php-soap 
+	php7.3-php-pecl-zip 
+	php7.3-php-pdo 
+	php7.3-php-process 
+	php7.3-php-amqplib
+
+
+
+https://www.rosehosting.com/blog/how-to-install-php-7-2-on-centos-7/
+amazon-linux-extras install
+amazon-linux-extras install -y php7.2
+amazon-linux-extras install -y php7.2-devel 
+amazon-linux-extras install -y php7.2-mysql 
+amazon-linux-extras install -y php7.2-pdo 
+amazon-linux-extras install -y php7.2-mbstring
+
+yum install php72 php72-php php72-php-fpm php72-php-mysqlnd php72-php-mysql php72-php-opcache php72-php-xml php72-php-xmlrpc php72-php-gd php72-php-mbstring php72-php-json php72-php-mcrypt php72-php-pear php72-php-devel php72-php-intl php72-php-bcmath php72-php-cli php72-php-common php72-php-soap php72-php-pecl-zip php72-php-pdo php72-php-process
+
+yum install php7.2 php7.2-php php7.2-php-fpm php7.2-php-mysqlnd php7.2-php-mysql php7.2-php-opcache php7.2-php-xml php7.2-php-xmlrpc php7.2-php-gd php7.2-php-mbstring php7.2-php-json php7.2-php-mcrypt php7.2-php-pear php7.2-php-devel php7.2-php-intl php7.2-php-bcmath php7.2-php-cli php7.2-php-common php7.2-php-soap php7.2-php-pecl-zip php7.2-php-pdo php7.2-php-process
+
+
+sudo systemctl status php72-php-fpm.service
+sudo ln -s /usr/bin/php71 /usr/bin/php
+
+sudo systemctl enable php-fpm.service
+sudo systemctl status php-fpm.service
+sudo systemctl restart php-fpm.service
+
+sudo systemctl enable mysqld.service
+sudo systemctl status mysqld.service
+sudo systemctl restart mysqld.service
+
+sudo systemctl enable httpd.service
+sudo systemctl status httpd.service
+sudo systemctl restart httpd.service
+
+1. Install Magento
+https://devdocs.magento.com/guides/v2.3/install-gde/composer.html
+https://magenticians.com/install-magento-on-aws/
+2. Install Composer
+https://inchoo.net/magento-2/magento-deployment-deployer/
+
+1. /etc/default/keyboard - change it to US(us)
+2. sudo dpkg-reconfigure keyboard-configuration
+3. Network should be attached to Bridged Adapter & should not be wireless

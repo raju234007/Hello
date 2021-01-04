@@ -1,0 +1,387 @@
+
+CREATE USER 'dev'@'localhost' IDENTIFIED BY 'Magento*247';
+/*Grant db_admin user to magento2 database:*/
+GRANT ALL PRIVILEGES ON *.* to 'dev'@'localhost' IDENTIFIED BY 'Magento*247' WITH GRANT OPTION;
+Ok, time to flush privileges and exit.
+FLUSH PRIVILEGES;
+EXIT;
+UPDATE mysql.user SET user='dev', password=PASSWORD('Magento*247') WHERE user='dev';
+ALTER USER 'dev'@'localhost' IDENTIFIED BY 'Magento*247';
+
+
+<VirtualHost *:80>
+
+  ServerName raju.tfl-magento.com
+  ServerAlias tfl-magento.com
+  DocumentRoot /var/www/html/
+  #ErrorLog /var/www/html/tfl_migrate/tfl_migrate_error.log
+  #CustomLog /var/www/html/tfl_migrate/tfl_migrate_access.log combined
+
+  <Directory /var/www/html/>
+   AllowOverride All
+  </Directory>
+
+</VirtualHost>
+
+<Directory "/var/www/html">
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Require all granted
+#       Options Indexes SymLinksIfOwnerMatch
+#       AllowOverride All
+#       Allow from all
+</Directory>
+
+<IfModule dir_module>
+        DirectoryIndex index.html index.php
+</IfModule>
+
+KingmcgawFramedFactory
+
+DROP USER 'dev'@'127.0.0.1';
+<Directory /var/www/> Options Indexes FollowSymLinks AllowOverride All Require all granted
+
+
+- As we discussed earlier, shrinking the volume is not supported. When you shrink a volume, it is possible that you will corrupt the file system of your volume or the data therein.
+- segmentation faults are crashing the file system, and EBS shrinking docs are not AWS officials. So that they are also not giving any confirmation on this.
+- Started working on Shrinking AWS EBS volumes(In Progress) observed the segmentation faults and ec2 status 1/2 checks passed Due to root volume corrupted, EC2 stopping automatically after starting it.
+
+sudo adduser 247eguest
+sudo passwd 247eguest
+sudo usermod -a -G apache 247eguest
+sudo mkdir -p /var/www/html/247eguest/
+sudo usermod --home /var/www/html/ashmolean/ 247eguest
+sudo chmod -R 777 /var/www/html/247eguest
+sudo chown -R 247eguest:apache /var/www/html/247eguest
+
+247eguest
+247C*98(erc@)
+
+Port : 21
+File Protocol :FTP
+
+/etc/httpd/conf/httpd.conf/
+
+AllowOverride All/None -> None/All
+
+httpd.conf -
+ServerAdmin root@localhost
+Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure
+ServerSignature Off
+ServerTokens Prod
+
+Options Indexes FollowSymLinks
+<LimitExcept POST GET HEAD>
+ Require valid-user
+</LimitExcept>
+
+Outdated Software detected - PHP under 7.4.0
+Outdated Software detected - Magento under 2.3.3/2.2.10
+No 'Website Monitoring' detected
+No 'Website Firewall' detected
+
+sudo adduser --shell /bin/false venkat
+sudo passwd venkat
+sudo mkdir -p /var/www/html/files
+sudo chown -R root:root /var/www/html/files
+sudo chmod -R 755 /var/www/html/files
+sudo vim /etc/ssh/sshd_config
+
+Match User venkat
+	ForceCommand internal-sftp
+	PasswordAuthentication yes
+	ChrootDirectory /var/sftp
+	PermitTunnel no
+	AllowAgentForwarding no
+	AllowTcpForwarding no
+	X11Forwarding no
+Save the configuration and restart SSH service to apply changes.
+
+sudo systemctl restart sshd.service
+
+WAP0507004A0143
+Manikala Nageswara Rao
+635220179435
+
+###Original
+<Directory />
+        Options FollowSymLinks
+        AllowOverride None
+        Require all denied
+</Directory>
+<Directory /usr/share>
+        AllowOverride None
+        Require all granted
+</Directory>
+<Directory /var/www/>
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Require all granted
+</Directory>
+
+###Redefined
+#<Directory />
+#       Options FollowSymLinks
+#       AllowOverride None
+#       Require all denied
+#</Directory>
+<Directory /usr/share>
+        AllowOverride None
+        Require all granted
+</Directory>
+<Directory "/var/www/">
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+</Directory>
+
+<IfModule dir_module>
+        DirectoryIndex index.html index.php
+</IfModule>
+
+sudo vim /etc/apache2/apache2.conf
+
+sudo vim /etc/apache2/sites-available/tfl-magento.conf
+
+###tfl-magento.conf
+<VirtualHost *:80>
+
+  ServerName dev.blueprint-magento.com
+  ServerAlias blueprint-magento.com
+  DocumentRoot /var/www/html/
+
+  LogLevel warn
+  ErrorLog /var/www/html/blueprint/blueprint_error.log
+  CustomLog /var/www/html/blueprint/blueprint_access.log combined
+
+</VirtualHost>
+
+
+http://dev.innout-magento.com/
+
+
+# SSL Engine
+SSLEngine on
+SSLOptions +StrictRequire
+SSLProxyEngine on
+
+# Prevent Beast attack
+SSLHonorCipherOrder on
+
+# SSL Compression (CRIME attack)
+SSLCompression off
+
+# HSTS
+Header always set Strict-Transport-Security "max-age=63072000; includeSubdomains; pr$
+
+# PROTOCOL
+SSLProtocol -all +TLSv1 +TLSv1.1 +TLSv1.2
+SSLCipherSuite EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:ECDHE-RSA-AES128-SHA:DHE-RSA-AES128-GCM-SHA256:AES256+EDH:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES128-SHA256:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA:DES-CBC3-SHA:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!MD5:!PSK:!RC4
+
+SSLProtocol  all -SSLv3 -TLSv1 -TLSv1.1
+
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://ashmolean.247commerce.co.uk/ [R=301,L]
+
+
+247team
+247commerce*987
+
+https://ashmolean.247commerce.co.uk/
+
+
+RewriteEngine On
+RewriteCond %{HTTP_HOST} !^ashmolean.247commerce.co.uk$ [NC]
+RewriteRule ^(.*)$ https://ashmolean.247commerce.co.uk/$1 [L,R=301]
+
+
+https://ssl-config.mozilla.org/#server=apache&version=2.4.41&config=intermediate&openssl=1.1.1d&guideline=5.4
+
+C:\Program Files\Apache\bin
+httpd -v
+httpd -k start
+httpd -k install -n "Apache24"
+https://geekflare.com/apache-interview-questions-answers/
+
+httpd.exe -w -e debug
+netstat -o -n -a | findstr 0.0.0.0:80
+skype issue
+
+How to create a virtual host in Apache
+-Create two documenatory roots in htdocs location with index.html files
+-add virtual host entries in the following file
+C:\Apache24\conf\extra\httpd-vhosts.conf
+-uncomment following line in below file
+C:\Apache24\conf\httpd.conf
+# Virtual hosts
+Include conf/extra/httpd-vhosts.conf
+-add two server names in etc/hosts file
+
+https://www.akadia.com/services/ssh_test_certificate.html
+http://www.g-loaded.eu/2005/11/10/be-your-own-ca/
+https://www.xolphin.com/support/ssl/OpenSSL/OpenSSL_-_Installation_under_Windows
+https://www.youtube.com/watch?v=Zdl68h_N2lc
+https://serverfault.com/questions/520195/how-does-servername-and-serveralias-work
+https://stackoverflow.com/questions/139889/multiple-domains-for-one-site-alias-or-redirect
+https://drupalize.me/blog/201504/configure-apache-multiple-domains
+https://www.linode.com/docs/web-servers/apache/install-and-configure-apache-on-centos-7
+
+set OPENSSL_CONF=C:\Apache24\conf\openssl.cnf
+
+openssl req -config C:\Apache24\conf\openssl.cnf -new -out C:\Apache24\conf\jamesbond.csr -keyout C:\Apache24\conf\jamesbond.pem
+
+openssl rsa -in C:\Apache24\conf\jamesbond.pem -out C:\Apache24\conf\jamesbond.key
+
+openssl x509 -req -signkey C:\Apache24\conf\jamesbond.key -days 1024 -in C:\Apache24\conf\jamesbond.csr -out C:\Apache24\conf\jamesbond.crt
+
+-->How to Redirect from Your Root Domain to the WWW Subdomain and Vice Versa Using mod_rewrite
+add rewite conditions to your httpd-vhosts.conf
+	#RewriteEngine on
+	#RewriteCond %{HTTP_HOST} ^example\.com$ [NC]
+	#RewriteRule ^(.*)$ http://www.example.com/$1 [R=301,L]
+add domain and sub domain as below
+    #ServerName example.com
+    #ServerAlias www.example.com
+add b
+
+-------------
+<VirtualHost *:80>
+	RewriteEngine On
+    RewriteCond %{HTTP_HOST} !^www.rajumanikala.esy.es$ [NC]
+    RewriteRule ^(.*)$ http://www.rajumanikala.esy.es/$1 [L,R=301]
+    # This first-listed virtual host is also the default for *:8080
+	ServerName example.com
+    ServerAlias www.example.com
+    DocumentRoot "c:/Apache24/htdocs"
+	ErrorLog "logs/error.log"
+	
+	ProxyRequests Off  
+	ProxyPreserveHost On  
+  
+	<Proxy *>  
+	Order deny,allow  
+	Allow from all  
+	</Proxy>  
+  
+	ProxyPass / http://localhost:8080/hello 
+	ProxyPassReverse / http://localhost:8080/hello
+  
+	<Location /hello>  
+	Order allow,deny  
+	Allow from all  
+	</Location> 
+</VirtualHost>
+--------------
+
+<VirtualHost *:80>
+	RewriteEngine On
+	RewriteCond %{HTTPS} !^ashmolean.247commerce.co.uk$ [NC]
+	RewriteRule ^(.*)$ https://ashmolean.247commerce.co.uk/$ [L,R=301]
+
+	ServerName ashmolean.247commerce.co.uk
+	DocumentRoot /var/www/html/ashmolean/current/
+</VirtualHost>
+<VirtualHost *:443>
+    SSLEngine on
+    Protocols h2 http/1.1
+    Header always set Strict-Transport-Security "max-age=63072000"
+</VirtualHost>
+
+
+grep -rnw '/etc/httpd/' -e 'SSLProtocol'
+
+SSLProtocol -all -TLSv1 -TLSv1.1 +TLSv1.2 -SSLv3
+SSLCipherSuite "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 !EECDH+aRSA+RC4 EECDH EDH+aRSA !RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !EDH-RSA-DES-CBC3-SHA !ECDHE-RSA-DES-CBC3-SHA !DES-CBC3-SHA !ECDHE-RSA-RC4-SHA !RC4-MD5 !RC4-SHA"
+
+
+SSLProtocol	all -SSLv3 -TLSv1 -TLSv1.1
+
+ServerName ashmolean.247commerce.co.uk
+Redirect / https://ashmolean.247commerce.co.uk/
+
+
+<IfModule headers_module>
+    RequestHeader set X-HTTPS 1
+    Header set Referrer-Policy "no-referrer-when-downgrade"
+</IfModule>
+
+
+
+<VirtualHost *>
+ServerName ashmolean.247commerce.co.uk
+Redirect / https://ashmolean.247commerce.co.uk/
+DocumentRoot /var/www/html/ashmolean/current/pub/
+</VirtualHost>
+
+<VirtualHost *>
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^/?(.*) https://%{ashmolean.247commerce.co.uk}/$1 [R,L]
+
+SSLEngine On
+SSLCompression off
+SSLHonorCipherOrder On
+SSLCipherSuite ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+SSLProtocol TLSv1.2
+</VirtualHost>
+
+ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-RSA-AES128-GCM-SHA256
+
+#####################
+Magento Setup
+#####################
+
+Step 1: (One time setup)
+Please make sure your  /Teamviewer credentials ready all the time and VM-x(Virtualization) is enabled in your machine
+Turn Off the Windows FireWall here
+Drive File Stream installation
+HeidiSQL/MySQLyog installation
+PuTTy installation
+FileZilla installation
+Notepad++ installation
+
+Step 2: (One time)
+Download the Oracle VM installation file from G:\Shared drives\Public\Projects\247CInfraIT\Raju_VirtualBox_clones\VirtualBox-6.1.4-136177-Win.exe and then 
+Install the Oracle VM in your machine
+Download the Ubuntu VBox file from G:\Shared drives\Public\Projects\247CInfraIT\Raju_VirtualBox_clones\Ubuntu_18.04_LTS_TFL_1.0.zip and then 
+Unzip and Run the 'Ubuntu VBox Machine' image in your machine
+- If you face any network issues let me know once here
+
+Step 3:
+Once the Instance started login with below credentials & run command as below
+username :dev
+password :dev*247
+> ip a
+If you dont see the network interface IP, like 192.168.XXX.XXX, then please change the network adapater to Bridged Adapter in 
+Machine > Settings > Network > attached to : Bridged Adapter and reset then go to Machine > Reset the instance
+Once the Instance started login with same credentials & run command as below
+> ip a
+NOTE : Never shutdown this instance
+
+Step 4:
+If you see the IP, note that IP check the Apache & PHP pages in browser as below and login to the instance using PuTTY, FileZilla.
+http://192.168..XXX.XXX/
+http://192.168..XXX.XXX/phpinfo.php
+You can connect to the MySQL either using HeidiSQL or MySQLyog by using below credentials
+Hostaname : 192.168..XXX.XXX(same IP)
+Username : dev
+Password : magento*247
+Database : db_tfl
+
+Step 5:
+if your IP updated then update in core_config_table in db_tfl and do the build again under /var/www/html/tfl_migrate/
+by using these commands
+
+sudo chmod -R 777 /var/www/html/tfl_migrate/
+sudo chown -R root:root /var/www/html/tfl_migrate/
+cd /var/www/html/tfl_migrate/
+php -dmemory_limit=6G bin/magento setup:upgrade
+php -dmemory_limit=6G bin/magento setup:static-content:deploy en_GB en_US -f
+php bin/magento cache:flush
+sudo chmod -R 777 /var/www/html/tfl_migrate
+sudo chown -R root:root /var/www/html/tfl_migrate
+
+Run the below URL to see the magento page in your browser
+http://192.168..XXX.XXX/tfl_migrate/
+

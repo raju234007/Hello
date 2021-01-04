@@ -1,0 +1,85 @@
+https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-ansible-on-ubuntu-16-04
+https://github.com/zimmertr/Bootstrap-Kubernetes-with-QEMU/tree/master/playbooks
+https://stackoverflow.com/questions/56763131/supress-ansible-warning-at-least-for-aptitude-install
+
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt-get update
+sudo apt-get install ansible
+
+
+54.194.170.202
+
+
+sudo apt-get install ssh
+sudo apt-get install python
+
+chmod 700 .ssh
+
+https://github.com/drnic/php-helloworld.git
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6vBtdC0BbRcP92AJLx0oURcU8/c77646+zM9GGhV1hcNUdyQiMA0Vp8d9tqXPrzvp505mE0NM3Boj8BljsH4dJ5WPGfSTvsWeb+TsCUpzZjFwOlcbFGCMdlE/TgfK8/uhUtDM1bf1U4sDck6BEWHmtal5zVXVO+Lb5Z0VjUQeoYS1BWwixavT8HvIur3B2ec4S0OqOl5hLcmcKHOmwjZ4BZsmZSYfZltLDoNsx3Kdy+I0U1av9BS3vrtl/XWxFryieLAXSX+G6dMYW9jpijTcm0AAf+ErSYCYWRiU9tkSVuRI0sdLnyjEGvEKxRD1ScVlGXIv1R7CGZKafkSLNiDD ansible@ip-172-30-0-56
+
+ansible -m shell -a 'df -h' host1
+ansible-playbook install_apache.yml --user=ansible --extra-vars "ansible_sudo_pass=ansible"
+
+
+
+---
+- hosts: host1
+  remote_user: ansible
+  sudo_user: ansible
+  sudo: true
+  become_method: sudo
+  tasks:
+  - name: Install list of packages
+    become: yes
+    apt:
+       name: ['aptitude','apache2']
+       force_apt_get: yes
+        
+become: yes
+apt:
+    name: ['apache2']
+
+become: true
+become_user: ansible
+become_method: sudo
+
+
+---
+- hosts: host1
+  remote_user: ansible
+  sudo_user: ansible
+  sudo: true
+  become_method: sudo
+  tasks:
+  - name: Install list of packages
+    become: yes
+    apt:
+       name: ['aptitude','apache2']
+       force_apt_get: yes
+        
+- become: yes
+- apt:
+  name: ['apache2']
+	
+- name: be sure apache2 is installed
+  yum:
+    name: apache2
+    state: present
+  tags: apache2
+
+- name: be sure apache2 is configured
+  template:
+    src: apache2.conf.j2
+    dest: /etc/apache2.conf
+  notify:
+    - restart apache2d
+  tags: apache2
+
+- name: be sure apache2d is running and enabled
+  service:
+    name: apache2d
+    state: started
+    enabled: yes
+  tags: apache2

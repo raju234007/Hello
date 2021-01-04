@@ -1,0 +1,177 @@
+***Jira Setup***
+
+## Install Java 8
+sudo apt-get update
+sudo apt-get install openjdk-8-jdk
+java -version
+javac -version
+echo "JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" | sudo tee -a /etc/environment
+source /etc/environment
+echo $JAVA_HOME
+
+## Install MySQL 5.7
+sudo apt-get install mysql-server
+sudo service mysql restart
+mysql -V
+mysql  Ver 14.14 Distrib 5.6.44, for Linux (x86_64) using  EditLine wrapper
+
+mysql -u root -p
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'EfbmW8u4yCKN9t' WITH GRANT OPTION;
+
+CREATE USER 'jira_admin'@'localhost' IDENTIFIED BY 'V@luEcom*247';
+CREATE USER 'jira_admin'@'%' IDENTIFIED BY 'V@luEcom*247';
+
+CREATE USER 'confluence_admin'@'localhost' IDENTIFIED BY 'V@luEcom*247';
+CREATE USER 'confluence_admin'@'%' IDENTIFIED BY 'V@luEcom*247';
+
+CREATE DATABASE jiradb CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+GRANT ALL PRIVILEGES ON *.* to 'jira_admin'@'%' IDENTIFIED BY 'V@luEcom*247' WITH GRANT OPTION;
+
+CREATE DATABASE confluencedb CHARACTER SET utf8 COLLATE utf8_bin;
+GRANT ALL PRIVILEGES ON *.* to 'confluence_admin'@'%' IDENTIFIED BY 'V@luEcom*247' WITH GRANT OPTION;
+
+GRANT ALL ON jiradb.* TO 'jira_admin'@'localhost';
+FLUSH PRIVILEGES;
+exit;
+
+CREATE USER 'bamboo_admin'@'%' IDENTIFIED BY 'V@luEcom*247';
+CREATE DATABASE bamboodb CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+GRANT ALL PRIVILEGES ON *.* to 'bamboo_admin'@'%' IDENTIFIED BY 'V@luEcom*247' WITH GRANT OPTION;
+
+UPDATE mysql.user SET user='wiki_user', password=PASSWORD('P@ssword!123#') WHERE user='test_user';
+FLUSH PRIVILEGES;
+
+DROP USER 'jira_admin'@'localhost';
+SELECT User,Host FROM mysql.user;
+
+echo "FISHEYE_INST=/opt/atlassian/fecru" | sudo tee -a /etc/environment
+source /etc/environment
+echo $FISHEYE_INST
+
+ps -ef | grep service
+sudo kill -9 process_number
+
+jdbc:mysql://52.23.113.80:3306/jiradb?useUnicode=true&characterEncoding=UTF8&sessionVariables=default_storage_engine=InnoDB
+jdbc:mysql://address=(protocol=tcp)(host=52.23.113.80)(port=3306)/jiradb?sessionVariables=default_storage_engine=InnoDB
+jdbc:mysql://address=(protocol=tcp)(host=52.23.113.80)(port=3306)/jiradb?useUnicode=true&amp;characterEncoding=UTF8&amp;sessionVariables=default_storage_engine=InnoDB</url>
+
+https://curiousabeey.com/how-to-install-and-configure-bamboo-in-ubuntu/
+wget https://www.atlassian.com/software/bamboo/downloads/binary/atlassian-bamboo-6.10.2.tar.gz
+
+bamboo.home=/var/atlassian/application-data/bamboo
+
+
+echo "BAMBOO_HOME=/opt/atlassian/bamboo" | sudo tee -a /etc/environment
+source /etc/environment
+echo $BAMBOO_HOME
+ 
+# vim /etc/systemd/system/bamboo.service
+[Unit]
+Description = Atlassian Bamboo
+After = syslog.target network.target
+
+[Service]
+Type = forking
+User = bamboo
+ExecStart = /opt/atlassian/bamboo/atlassian-bamboo/bin/start-bamboo.sh
+ExecStop = /opt/atlassian/bamboo/atlassian-bamboo/bin/stop-bamboo.sh
+SuccessExitStatus = 143
+
+[Install]
+WantedBy = multi-user.target
+
+# if [ -f /etc/systemd/system/*.wants/bamboo.service ]; then echo "On"; else echo "Off"; fi
+
+The scratchDir you specified: [/opt/atlassian/bamboo/work/Catalina/localhost/ROOT] is unusable
+jdbc:mysql://52.23.113.80:3306/bamboodb?autoReconnect=true
+
+________________________________________________
+#!/bin/bash
+#Author: Raju
+#Purpose: To monitor the Apache
+if ssh -qn root@52.18.76.216 ps aux | grep -q httpd; then
+    echo "Apache is running"
+else
+    echo "Apache is not running"
+fi
+
+aws s3 rm s3://XYZ --recursive --exclude "oct/ap_12*" --exclude "sept/ap_12*" --include "oct/ap_0*" --include "sept/ap_0*"
+aws s3 sync . s3://247valuecomtest
+aws s3 rm s3://247valuecomtest/ --recursive --exclude="*" --include="sept/ap_1*"
+aws s3 rm --recursive s3://247valuecomtest/sept/
+
+
+git remote add origin https://github.com/royalschoolofmgt/247codeide.git
+
+______________________________________________
+
+# service iptables save
+iptables -A INPUT -s 209.175.453.23 -p tcp --destination-port 22 -j DROP
+iptables -A INPUT -s 157.51.88.249 -j DROP
+iptables -D INPUT -s 122.172.221.194 -j DROP
+
+ping -c4 
+
+telnet 52.18.76.216 80
+
+login to linux machine
+sudo adduser --shell /bin/false senthil
+sudo passwd senthil
+sudo chown -R root:root <path/to/directory>
+sudo chmod -R 755 <path/to/directory>
+
+sudo vim /etc/ssh/sshd_config
+#added the below content in sshd_config file last
+Match User senthil
+	ForceCommand internal-sftp
+	PasswordAuthentication yes
+	ChrootDirectory <path/to/directory>
+	PermitTunnel no
+	AllowAgentForwarding no
+	AllowTcpForwarding no
+	X11Forwarding no
+________________________________________________
+
+sudo chmod -R 774 /var/sftp/files
+
+
+#!/bin/bash
+if echo "GET; exit" | nc -v 54.80.169.199 80 > /dev/null 2>&1 
+ then 
+  exit 0
+ else
+  echo "Please check Web services "
+  exit 1
+fi
+
+#!/bin/bash
+
+###edit the following
+service=httpd
+email=your@email.address
+sender=admin@your.server
+###stop editing
+
+host=`54.80.169.199 -f`
+if (( $(ps -ef | grep -v grep | grep $service | wc -l) > 0 ))
+then
+echo "$service is running"
+else
+/usr/sbin/service $service start
+if (( $(ps -ef | grep -v grep | grep $service | wc -l) > 0 ))
+then
+subject="$service at $host has been started"
+message="$service at $host wasn't running and has been started"
+else
+subject="$service at $host is not running"
+message="$service at $host is stopped and cannot be started!!!"
+fi
+/var/qmail/bin/qmail-inject <<EOM
+To: $email
+From: $sender
+Subject: $subject
+
+$message
+
+EOM
+fi

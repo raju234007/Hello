@@ -1,0 +1,88 @@
+ubuntu@ip-XXXX:~$ openssl version -v
+OpenSSL 1.0.2g  1 Mar 2016
+ubuntu@ip-XXXX:~$ sudo wget http://www.openssl.org/source/openssl-1.1.1.tar.gz
+ubuntu@ip-XXXX:~$ sudo tar -xvzf openssl-1.1.1.tar.gz
+ubuntu@ip-XXXX:~$ cd openssl-1.1.1
+ubuntu@ip-XXXX:~$ sudo ./config
+ubuntu@ip-XXXX:~$ sudo make install
+ubuntu@ip-XXXX:~$ sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`
+ubuntu@ip-XXXX:~$ openssl version -v
+OpenSSL 1.0.2l  25 May 2017 
+
+
+
+linuxhelp ~ # openssl version
+linuxhelp ~ # wget https://www.openssl.org/source/openssl-1.1.1.tar.gz
+linuxhelp ~ # mv openssl-1.1.1.tar.gz  /usr/src/
+linuxhelp ~ # cd /usr/src/
+linuxhelp src # ls
+linuxhelp src # tar xzf openssl-1.1.1.tar.gz
+linuxhelp src # cd openssl-1.0.2o/
+linuxhelp openssl-1.0.2o # ./config
+linuxhelp openssl-1.0.2o # make
+linuxhelp openssl-1.0.2o # make test 
+linuxhelp openssl-1.0.2o # make install 
+linuxhelp openssl-1.0.2o # openssl version
+linuxhelp openssl-1.0.2o # mv /usr/bin/openssl /root/
+linuxhelp openssl-1.0.2o # ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl
+linuxhelp openssl-1.0.2o # openssl version
+
+
+cd /usr/src
+wget https://www.openssl.org/source/openssl-1.1.1.tar.gz -O openssl-1.1.1.tar.gz
+tar -zxf openssl-1.1.1.tar.gz
+cd openssl-1.1.1
+./config
+make
+make test
+make install
+openssl version
+--If it shows the old version, do the steps below.
+mv /usr/bin/openssl /root/
+ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl
+--openssl version
+OpenSSL 1.1.1 7 Apr 2014
+
+
+yum install gcc
+cd /usr/src/
+# OPTIONALLY CHANGE openssl-1.1.1.tar.gz to the version which you want
+wget https://www.openssl.org/source/openssl-1.1.1.tar.gz
+sha256sum openssl-1.1.1.tar.gz  #confirm this matches the published hash
+tar -zxf openssl-1.1.1.tar.gz
+cd /usr/src/openssl-1.1.1
+./config --prefix=/usr/local --openssldir=/usr/local/openssl
+make
+make test
+make install
+export LD_LIBRARY_PATH=/usr/local/lib64
+#make export permanent
+echo "export LD_LIBRARY_PATH=/usr/local/lib64" > /etc/profile.d/ld_library_path.sh
+chmod ugo+x /etc/profile.d/ld_library_path.sh
+openssl version  #confirm it works
+#recommended reboot here
+openssl version  #confirm it works after reboot
+
+---------------------------------------------
+--* Update to OpenSSL 1.1.1d  10 Sep 2019 *--
+---------------------------------------------
+
+yum install gcc
+cd /usr/src/
+# OPTIONALLY CHANGE openssl-1.1.1d.tar.gz to the version which you want
+wget https://www.openssl.org/source/openssl-1.1.1d.tar.gz
+sha256sum openssl-1.1.1d.tar.gz  #confirm this matches the published hash
+1e3a91bc1f9dfce01af26026f856e064eab4c8ee0a8f457b5ae30b40b8b711f2  openssl-1.1.1d.tar.gz
+tar -zxf openssl-1.1.1d.tar.gz
+cd /usr/src/openssl-1.1.1d
+./config --prefix=/usr/local --openssldir=/usr/local/openssl
+make
+make test
+make install
+export LD_LIBRARY_PATH=/usr/local/lib64
+#make export permanent
+echo "export LD_LIBRARY_PATH=/usr/local/lib64" > /etc/profile.d/ld_library_path.sh
+chmod ugo+x /etc/profile.d/ld_library_path.sh
+openssl version  #confirm it works
+#recommended reboot here
+openssl version  #confirm it works after reboot

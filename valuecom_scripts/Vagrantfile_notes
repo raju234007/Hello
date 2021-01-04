@@ -1,0 +1,79 @@
+vagrant package --base=Ubuntu --output=ubuntu64.box
+
+vagrant box add ubuntu64.box --name=Ubuntu_18.04_LTS_V1.0
+
+
+vagrant box add --name Ubuntu_18.04_LTS_V1.0 "file:///C:/Users/Raju/VirtualBox VMs/Ubuntu_18.04_LTS_V1.0.box"
+
+C:/Users/Raju/VirtualBox VMs/Ubuntu_18.04_LTS_V1.0.box
+
+Ubuntu_18.04_LTS_Vagrant1.0
+
+vagrant box add Ubuntu_18.04_LTS_V1.0.vbox --name Ubuntu_18.04_LTS_Vagrant1.0 
+
+
+"Ubuntu_18.04_LTS_V1.0" {ac21418e-13cf-4816-b80a-d1cdd2eea4d7}
+"Ubuntu_18.04_LTS_V1.2_FullSetup_GLAMP_M2" {36e35b31-e974-42e6-8339-89de690bd15f}
+"Vagrant Magento 2" {62e57d88-387e-4592-81b4-064d387e5798}
+
+echo -n 'ac21418e-13cf-4816-b80a-d1cdd2eea4d7' > id
+
+vagrant box add Ubuntu_18.04_LTS_V1.1_from_Vagrant package.box
+vagrant init Ubuntu_18.04_LTS_V1.1_from_Vagrant
+vagrant up
+.
+
+
+D:\247tfl-vm>vagrant up
+==> Checking dependencies...
+==> All dependencies are satisfied
+==> Checking dependencies...
+==> All dependencies are satisfied
+Bringing machine '247Commerce' up with 'virtualbox' provider...
+==> 247Commerce: Importing base box 'geerlingguy/debian9'...
+==> 247Commerce: Matching MAC address for NAT networking...
+==> 247Commerce: Checking if box 'geerlingguy/debian9' version '1.1.6' is up to date...
+==> 247Commerce: Setting the name of the VM: TFL Playground
+==> 247Commerce: Fixed port collision for 22 => 2222. Now on port 2200.
+==> 247Commerce: Clearing any previously set network interfaces...
+A host only network interface you're attempting to configure via DHCP
+already has a conflicting host only adapter with DHCP enabled. The
+DHCP on this adapter is incompatible with the DHCP settings. Two
+host only network interfaces are not allowed to overlap, and each
+host only network interface can have only one DHCP server. Please
+reconfigure your host only network or remove the virtual machine
+using the other host only network.
+
+
+
+templates. A template is a description of your AWS resources that is 
+written in JSON. A basic CloudFormation template includes:
+• Format version. This is the latest version of the template.
+• Description. This lets you know what the template does.
+• Parameters. These let you customize a template with specific 
+values, such as a domain name or database password.
+• Resources. These are the smallest pieces of infrastructure that you 
+can describe, such as a load balancer or an elastic IP address.
+• Outputs. These return values, such as the public name of an 
+Amazon EC2 instance.
+
+
+    247Commerce:
+    247Commerce: setup:install [--amqp-host AMQP-HOST] [--amqp-port AMQP-PORT] [--amqp-user AMQP-USER] [--amqp-password AMQP-PASSWORD] [--amqp-virtualhost AMQP-VIRTUALHOST] [--amqp-ssl AMQP-SSL] [--amqp-ssl-options AMQP-SSL-OPTIONS] [--enable-debug-logging ENABLE-DEBUG-LOGGING] [--enable-syslog-logging ENABLE-SYSLOG-LOGGING] [--backend-frontname BACKEND-FRONTNAME] [--consumers-wait-for-messages CONSUMERS-WAIT-FOR-MESSAGES] [--key KEY] [--db-host DB-HOST] [--db-name DB-NAME] [--db-user DB-USER] [--db-engine DB-ENGINE] [--db-password DB-PASSWORD] [--db-prefix DB-PREFIX] [--db-model DB-MODEL] [--db-init-statements DB-INIT-STATEMENTS] [-s|--skip-db-validation] [--http-cache-hosts HTTP-CACHE-HOSTS] [--db-ssl-key DB-SSL-KEY] [--db-ssl-cert DB-SSL-CERT] [--db-ssl-ca DB-SSL-CA] [--db-ssl-verify] [--session-save SESSION-SAVE] [--session-save-redis-host SESSION-SAVE-REDIS-HOST] [--session-save-redis-port SESSION-SAVE-REDIS-PORT] [--session-save-redis-password SESSION-SAVE-REDIS-PASSWORD] [--session-save-redis-timeout SESSION-SAVE-REDIS-TIMEOUT] [--session-save-redis-persistent-id SESSION-SAVE-REDIS-PERSISTENT-ID] [--session-save-redis-db SESSION-SAVE-REDIS-DB] [--session-save-redis-compression-threshold SESSION-SAVE-REDIS-COMPRESSION-THRESHOLD] [--session-save-redis-compression-lib SESSION-SAVE-REDIS-COMPRESSION-LIB] [--session-save-redis-log-level SESSION-SAVE-REDIS-LOG-LEVEL] [--session-save-redis-max-concurrency SESSION-SAVE-REDIS-MAX-CONCURRENCY] [--session-save-redis-break-after-frontend SESSION-SAVE-REDIS-BREAK-AFTER-FRONTEND] [--session-save-redis-break-after-adminhtml SESSION-SAVE-REDIS-BREAK-AFTER-ADMINHTML] [--session-save-redis-first-lifetime SESSION-SAVE-REDIS-FIRST-LIFETIME] [--session-save-redis-bot-first-lifetime SESSION-SAVE-REDIS-BOT-FIRST-LIFETIME] [--session-save-redis-bot-lifetime SESSION-SAVE-REDIS-BOT-LIFETIME] [--session-save-redis-disable-locking SESSION-SAVE-REDIS-DISABLE-LOCKING] [--session-save-redis-min-lifetime SESSION-SAVE-REDIS-MIN-LIFETIME] [--session-save-redis-max-lifetime SESSION-SAVE-REDIS-MAX-LIFETIME] [--session-save-redis-sentinel-master SESSION-SAVE-REDIS-SENTINEL-MASTER] [--session-save-redis-sentinel-servers SESSION-SAVE-REDIS-SENTINEL-SERVERS] [--session-save-redis-sentinel-verify-master SESSION-SAVE-REDIS-SENTINEL-VERIFY-MASTER] [--session-save-redis-sentinel-connect-retires SESSION-SAVE-REDIS-SENTINEL-CONNECT-RETIRES] [--cache-backend CACHE-BACKEND] [--cache-backend-redis-server CACHE-BACKEND-REDIS-SERVER] [--cache-backend-redis-db CACHE-BACKEND-REDIS-DB] [--cache-backend-redis-port CACHE-BACKEND-REDIS-PORT] [--cache-backend-redis-password CACHE-BACKEND-REDIS-PASSWORD] [--cache-backend-redis-compress-data CACHE-BACKEND-REDIS-COMPRESS-DATA] [--cache-backend-redis-compression-lib CACHE-BACKEND-REDIS-COMPRESSION-LIB] [--cache-id-prefix CACHE-ID-PREFIX] [--page-cache PAGE-CACHE] [--page-cache-redis-server PAGE-CACHE-REDIS-SERVER] [--page-cache-redis-db PAGE-CACHE-REDIS-DB] [--page-cache-redis-port PAGE-CACHE-REDIS-PORT] [--page-cache-redis-password PAGE-CACHE-REDIS-PASSWORD] [--page-cache-redis-compress-data PAGE-CACHE-REDIS-COMPRESS-DATA] [--page-cache-redis-compression-lib PAGE-CACHE-REDIS-COMPRESSION-LIB] [--page-cache-id-prefix PAGE-CACHE-ID-PREFIX] [--lock-provider LOCK-PROVIDER] [--lock-db-prefix LOCK-DB-PREFIX] [--lock-zookeeper-host LOCK-ZOOKEEPER-HOST] [--lock-zookeeper-path LOCK-ZOOKEEPER-PATH] [--lock-file-path LOCK-FILE-PATH] [--base-url BASE-URL] [--language LANGUAGE] [--timezone TIMEZONE] [--currency CURRENCY] [--use-rewrites USE-REWRITES] [--use-secure USE-SECURE] [--base-url-secure BASE-URL-SECURE] [--use-secure-admin USE-SECURE-ADMIN] [--admin-use-security-key ADMIN-USE-SECURITY-KEY] [--admin-user [ADMIN-USER]] [--admin-password [ADMIN-PASSWORD]] [--admin-email [ADMIN-EMAIL]] [--admin-firstname [ADMIN-FIRSTNAME]] [--admin-lastname [ADMIN-LASTNAME]] [--cleanup-database] [--sales-order-increment-prefix SALES-ORDER-INCREMENT-PREFIX] [--use-sample-data] [--enable-modules [ENABLE-MODULES]] [--disable-modules [DISABLE-MODULES]] [--convert-old-scripts [CONVERT-OLD-SCRIPTS]] [-i|--interactive] [--safe-mode [SAFE-MODE]] [--data-restore [DATA-RESTORE]] [--dry-run [DRY-RUN]] [--magento-init-params MAGENTO-INIT-PARAMS]
+The SSH command responded with a non-zero exit status. Vagrant
+assumes that this means the command failed. The output for this command
+should be in the log above. Please read the output to determine what
+went wrong.
+
+/etc/php/7.0/cli/php.ini
+
+date.timezone = "Europe/London"
+memory_limit = 3G
+upload_max_filesize = 256M
+post_max_size = 256M
+
+/etc/php/7.0/apache2/php.ini
+
+date.timezone = "Europe/London"
+memory_limit = 2G
+max_input_vars = 20000

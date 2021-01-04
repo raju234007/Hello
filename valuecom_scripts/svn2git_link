@@ -1,0 +1,153 @@
+Migration from SVN to GIT
+
+--------------------------------
+
+Folder <SOURCE> is the workspace where code is checked out from SVN
+Folder <TARGET> is the workspace where code will be pushed to
+
+1. Go to the <SOURCE> and run svn log -q | awk -F '|' '/^r/ {sub("^ ", "", $2); sub(" $", "", $2); print $2" = "$2" <"$2">"}' | sort -u > authors-transform.txt
+2. Go to <TARGET> and run git svn init <SVN_REPO_URL> --no-metadata
+3. git config svn.authorsfile authors-transform.txt
+4. git svn fetch
+5. git push origin master
+
+----------------
+git svn init http://svn.247commerce.com:81/svn/PHP/trunk --no-metadata
+git config svn.authorsfile ../authors-transform.txt
+
+wget -O /etc/yum.repos.d/PUIAS_6_computational.repo https://gitlab.com/gitlab-org/gitlab-recipes/raw/master/install/centos/PUIAS_6_computational.repo
+wget -O /etc/pki/rpm-gpg/RPM-GPG-KEY-puias http://springdale.math.ias.edu/data/puias/6/x86_64/os/RPM-GPG-KEY-puias
+rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-puias
+yum clean all; yum install git git-svn
+
+cat >> /etc/yum.repos.d/wandiscosvn.repo << "EOF"
+[WandiscoSVN]
+name=Wandisco SVN Repo
+baseurl=http://opensource.wandisco.com/centos/$releasever/svn-1.8/RPMS/$basearch/
+enabled=1
+gpgcheck=0
+EOF
+yum clean all; yum install svn 7
+
+
+http://opensource.wandisco.com/centos/7/svn-1.8/RPMS/x86_64/subversion-1.8.19-1.x86_64.rpm
+cd /svn2git 
+java -jar svn-migration-scripts.jar verify
+svncheckoutcode
+git svn clone --stdlayout --authors-file=authors.txt http://svn.247commerce.com:81/svn/PHP/ svncheckoutcode --username raju
+
+jaiganesh = jaiganesh <jaiganesh@247commerce.co.uk>
+jerald = jerald <jerald@247commerce.co.uk>
+VisualSVN Server = VisualSVN Server <VisualSVN Server>
+
+java -Dfile.encoding=utf-8 -jar ../svn-migration-scripts.jar clean-git
+java -Dfile.encoding=utf-8 -jar ../svn-migration-scripts.jar clean-git --force
+
+
+git init 
+git remote add origin https://github.com/royalschoolofmgt/svncheckoutcode.git
+git config --global user.email "raju@247commerce.co.uk"
+git config --global user.name "raju247commerce"
+git add --all
+git commit -m "Conversion from SVN to Git"
+git push origin master 
+git push --all
+git push --tag
+
+
+[root@ip-172-30-0-226 svncheckoutcode]# git init
+Reinitialized existing Git repository in /home/ec2-user/svn2git/svncheckoutcode/.git/
+[root@ip-172-30-0-226 svncheckoutcode]# git remote add origin https://github.com/royalschoolofmgt/svncheckoutcode.git
+[root@ip-172-30-0-226 svncheckoutcode]# git config --global user.email "raju@247commerce.co.uk"
+[root@ip-172-30-0-226 svncheckoutcode]# git config --global user.name "raju247commerce"
+[root@ip-172-30-0-226 svncheckoutcode]# git add --all
+[root@ip-172-30-0-226 svncheckoutcode]# git commit -m "Conversion from SVN to Git"
+On branch master
+nothing to commit, working tree clean
+[root@ip-172-30-0-226 svncheckoutcode]# git push origin master
+Username for 'https://github.com': raju247commerce
+Password for 'https://raju247commerce@github.com':
+Enumerating objects: 167698, done.
+Counting objects: 100% (167698/167698), done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (70349/70349), done.
+error: RPC failed; curl 55 OpenSSL SSL_write: SSL_ERROR_ZERO_RETURN, errno 32
+fatal: The remote end hung up unexpectedly
+Writing objects: 100% (167698/167698), 5.17 GiB | 64.76 MiB/s, done.
+Total 167698 (delta 85638), reused 167698 (delta 85638)
+fatal: The remote end hung up unexpectedly
+Everything up-to-date
+[root@ip-172-30-0-226 svncheckoutcode]# git push --all
+Username for 'https://github.com': raju247commerce
+Password for 'https://raju247commerce@github.com':
+Enumerating objects: 167698, done.
+Counting objects: 100% (167698/167698), done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (70349/70349), done.
+error: RPC failed; curl 55 OpenSSL SSL_write: SSL_ERROR_ZERO_RETURN, errno 32
+fatal: The remote end hung up unexpectedly
+Writing objects: 100% (167698/167698), 5.17 GiB | 78.18 MiB/s, done.
+Total 167698 (delta 85638), reused 167698 (delta 85638)
+fatal: The remote end hung up unexpectedly
+Everything up-to-date
+[root@ip-172-30-0-226 svncheckoutcode]# git push --tag
+Username for 'https://github.com': raju247commerce
+Password for 'https://raju247commerce@github.com':
+No refs in common and none specified; doing nothing.
+Perhaps you should specify a branch such as 'master'.
+Everything up-to-date
+[
+
+git remote add origin git@github.com:raju247commerce/svncheckoutcode.git
+
+git config --global ssh.postBuffer 524288000
+
+
+#####################################
+
+svnadmin dump http://svn.247commerce.com:81/svn/PHP/ > /home/ubuntu/svngit.dump
+svnrdump dump http://svn.247commerce.com:81/svn/PHP/ > /home/ubuntu/svngit.dump
+
+1) You can extract the dump and convert it to git even without a server:
+
+svnadmin create /home/ubuntu/repos/svn
+svnadmin load /home/ubuntu/repos/svn < /home/ubuntu/svngit.dump
+git svn clone file:///home/ubuntu/svn/repo /home/user/svn/repo.git
+
+Dump your whole repository:
+
+$ svnadmin dump /home/ubuntu/svn/repos > full.dump
+* Dumped revision 0.
+* Dumped revision 1.
+* Dumped revision 2.
+…
+Incrementally dump a single transaction from your repository:
+
+$ svnadmin dump /home/ubuntu/repos/svn -r 21 --incremental > incr.dump
+* Dumped revision 21.
+******************
+-Root access to repository
+-If you have access to the server that your repository is hosted on you can simply dump the repository with its history to a file using
+
+svnadmin dump /home/ubuntu/repos/svn > /path/to/dump/file.dump
+-You should now have a file called file.dump on your repository server. Using some transfer software (e.g. scp or some (s)ftp software) get the file on your local machine. Once you've done so change directory to
+
+cd /home/ubuntu/repos/svn
+-and create a new repo you want the history to be imported to
+
+svnadmin create /home/ubuntu/repos/svn
+-Now load the repository dump file into you newly created repo
+
+svnadmin load /home/ubuntu/repos/svn < /home/ubuntu/svngit.dump
+
+******************
+
+Non-root access to repository
+This one will actually work always however might be a little slower depending on how big your repository is.
+
+Change directory to
+
+cd /home/ubuntu/svn_checkout
+and checkout the full repository
+
+svn checkout http://svn.247commerce.com:81/svn/PHP/ /home/ubuntu/svn_checkout

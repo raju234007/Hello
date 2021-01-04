@@ -1,0 +1,103 @@
+48866ed5d4474833ad58e22d2de656cd
+
+[root@ip-172-30-0-247 tmp]# aws ec2 describe-instances --filters  "Name=instance-state-name,Values=running" --query 'Reservations[].Instances[].[ [Tags[?Key==`Name`].Value][0][0],State.Name, PublicIpAddress]' --region=us-east-1 --output table
+-----------------------------------------
+|           DescribeInstances           |
++---------+-----------+-----------------+
+|  Jenkins|  running  |  54.167.200.94  |
++---------+-----------+-----------------+
+
+[root@ip-172-30-0-247 tmp]# aws ec2 describe-instances --filters  "Name=instance-state-name,Values=running" --query 'Reservations[].Instances[].[InstanceId]' --region=us-east-1 --output text
+i-0e8c7ea4ad1432a21
+
+[root@ip-172-30-0-247 tmp]# aws ec2 describe-instances --instance-ids $(aws ec2 describe-instances --filters  "Name=instance-state-name,Values=running" --query 'Reservations[].Instances[].[InstanceId]' --region=us-east-1 --output text) --query 'Reservations[0].Instances[0].ImageId' --output text
+ami-00eb20669e0990cb4
+
+aws ec2 describe-images --image-ids $(aws ec2 describe-instances --instance-ids $(aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query 'Reservations[].Instances[].[InstanceId]' --region=us-east-1 --output text) --query 'Reservations[0].Instances[0].ImageId' --region=us-east-1 --output text) --query 'Reservations[0].Instances[0].ImageId' --region=us-east-1 --output table
+aws ec2 describe-images --image-ids $(aws ec2 describe-instances --instance-ids $(aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query 'Reservations[].Instances[].[InstanceId]' --region=us-east-1 --output text) --query 'Reservations[0].Instances[0].ImageId' --region=us-east-1 --output text) --query 'Images[0].[Description,ImageId,Name]' --output text
+
+
+#!/bin/bash
+Instance_Id = $(aws ec2 describe-instances --filters  "Name=instance-state-name,Values=running" --query 'Reservations[].Instances[].[InstanceId]' --region=us-east-1 --output text)
+AMI_ID = $(aws ec2 describe-instances --instance-ids $(Instance_Id) --query 'Reservations[0].Instances[0].ImageId' --output text)
+Image = $(aws ec2 describe-images --image-ids $(AMI_ID) --query 'Images[0].[Description,ImageId,Name]' --output text)
+
+
+https://engageinteractive.co.uk/blog/aws-cloudwatch-reporting-ram-disk-usage-and-more
+
+https://medium.com/@Hironsan/save-aws-ec2-cost-by-automatically-stopping-idle-instance-using-lambda-and-cloudwatch-759edd62b27d
+https://dev.to/idrisrampurawala/monitoring-memory-and-disk-metrics-for-aws-ec2-instances-2eg2
+https://www.golinuxcloud.com/list-check-active-ssh-connections-linux/
+
+
+well if you use telnet command to check the port connectivity, it will show
+
+"connection timeout" if the port is blocked by the firewall
+"Connection refused" if the service is down/not listening on specified port, but port is reachable.
+"connected to server_ip" if connection is successful
+
+telnet myserver.com 80 
+nc -v myserver.com 80
+nmap myserver.com 80 
+
+-------------------
+https://medium.com/@mohan08p/install-and-configure-jenkins-on-amazon-ami-8617f0816444
+sudo yum install java-1.8.0
+java -version
+javac -version
+echo "JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk" | sudo tee -a /etc/environment
+source /etc/environment
+echo $JAVA_HOME
+
+
+export PATH=${PATH}:${JAVA_HOME}/jre/bin
+wget --no-cookies --no-check-certificate --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u151-b12/jdk-8u151-linux-x64.tar.gz -O jdk-8-linux-x64.tar.gz
+
+tar -xvf jdk-8u231-linux-i64.tar.gz
+sudo mkdir -p /usr/lib/jvm/jdk1.8.0_231
+sudo mv jdk1.8.0_231/* /usr/lib/jvm/jdk1.8.0_231/
+sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jdk1.8.0_231/bin/java" 1
+sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/jdk1.8.0_231/bin/javac" 1
+sudo update-alternatives --install "/usr/bin/javaws" "javaws" "/usr/lib/jvm/jdk1.8.0_231/bin/javaws" 1
+sudo ln -s /usr/lib/jvm/jdk1.8.0_231/bin/java /usr/bin/java
+
+If you go to /etc/init.d/ and open jenkins file you will find:
+
+candidates="
+/etc/alternatives/java
+/usr/lib/jvm/java-1.6.0/bin/java
+/usr/lib/jvm/jre-1.6.0/bin/java
+/usr/lib/jvm/java-1.7.0/bin/java
+/usr/lib/jvm/jre-1.7.0/bin/java
+/usr/lib/jvm/java-1.8.0/bin/java
+/usr/lib/jvm/jre-1.8.0/bin/java
+/usr/bin/java
+"
+b7e816452c8249e6b38816a3692856ac
+
+---------------------------
+https://medium.com/@andtrott/how-to-downsize-a-root-ebs-volume-on-aws-ec2-amazon-linux-727c00148f61
+https://codingbee.net/rhcsa/rhcsa-creating-partitions
+
+aws sts decode-authorization-message --encoded-message KgC5UQHrArXWd8nLYXXPtyCYk8mMkd7hAvSaaAjtEyd8TDSX0hL774I8dMx20zpFHn7Dnc9SeZDAsiobm9bO_EV5ZRXIDwT6gCEcUGbcltLpqgl76W4qBsjtb5ap2_5tVkkzUSIKMy8rAwpfmJOJXLnDr5OataIsusFYdukalqJoe1EjX-TCscAE0G31TT328oET710mqrVupoa_7tFOcKMdvyoAxF-h4bIU2uCphSmlSGFG8W3gGqYnf8tHi136fOb_W1hjn7X3enCRI_bhSRMDMaAWzc559IDrm6rivKknKUWvbOhrLQOqW6lhZb8FRcinZg2zhPWF3XqmGwfUF7MqzzFvnWDHbMmQPkw2EkWbXHkWqxq8FsRJF6uYuaVVnhGbSkHBmg_SmWIcbE-usS3eeHzDBDSZJFZlhC-yHDyHXxygOHRMc-D25DeIAQ3CwCrJfsr6HMRFU5wtcgxRcSsvayc3vhAgbWLEHfzkv_7Vr0a2KMwlNpp1UDsxeUy-Vozp5agH5QJ_Xux93P8XvqcW9dtgvsYiDV9vUB1Zd-wDkKzyAkgnQt1FbjRAk_xY7o1nFAWy06hvKPp3dCbmSvlwqXe2tdjhBglP8akT-YMumc5s_m7RMJRD4fciF6NdoN23gg-LgaNCmJj3lDXhieUz2pZho1Eb-8KFo8faNC1ey2ECuaARiPzHi8mQlKqM
+
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].[[Tags[?Key==`Name`].Value][0][0],State.Name, InstanceId]' --region=us-east-1 --output table
+----------------------------------------------------
+|                 DescribeInstances                |
++---------------+----------+-----------------------+
+|  Ansible      |  stopped |  i-04df4266acc167ee8  |
+|  Ansible_node |  stopped |  i-01233696c7ff617c1  |
+|  Jira         |  stopped |  i-016dba949d168c1f8  |
+|  LAMP         |  running |  i-03e06b301fe1556d5  |
+|  Jenkins      |  running |  i-0e8c7ea4ad1432a21  |
+|  CloudWatch   |  running |  i-04a6d680e76295d55  |
++---------------+----------+-----------------------+
+
+aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query 'Reservations[].Instances[].[ [Tags[?Key==`Name`].Value][0][0],State.Name, InstanceId, PublicIpAddress]' --region=us-east-1 --output table
+-------------------------------------------------------------------
+|                        DescribeInstances                        |
++------------+----------+-----------------------+-----------------+
+|  LAMP      |  running |  i-03e06b301fe1556d5  |  52.55.109.103  |
+|  Jenkins   |  running |  i-0e8c7ea4ad1432a21  |  3.81.109.100   |
+|  CloudWatch|  running |  i-04a6d680e76295d55  |  3.85.106.216   |
++------------+----------+-----------------------+-----------------+
