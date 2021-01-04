@@ -1,2 +1,1 @@
-# Hello
-Wishes
+DevOps tools scripts docs installation steps added
